@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "504870025046",
+    "project_id": "demirap-a410f",
+    "storage_bucket": "demirap-a410f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504870025046:android:0336af7e8969bd344d48f7",
+        "android_client_info": {
+          "package_name": "com.demircelik1.demircelik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504870025046-5shh5paj3fbao5va7gn36jtl5uqumvfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwWLc2Ydk2ICdjwjWoQOP7LzBqLPqAAJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504870025046-5shh5paj3fbao5va7gn36jtl5uqumvfs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "504870025046-u6fqetcco22cjtp1nr8ttbugtee6vfog.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.demirApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

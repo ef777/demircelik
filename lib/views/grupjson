@@ -1,0 +1,138 @@
+[
+    {
+        "ID": "1",
+        "KaynakID": "1",
+        "Kodu": "Ozel-TR",
+        "Adi": "Türkiye (Özel)",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "2",
+        "KaynakID": "1",
+        "Kodu": "Ozel-EU",
+        "Adi": "Avrupa (Özel)",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "3",
+        "KaynakID": "1",
+        "Kodu": "Ozel-US",
+        "Adi": "Amerika (Özel)",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "4",
+        "KaynakID": "1",
+        "Kodu": "Ozel-CH",
+        "Adi": "Çin (Özel)",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "5",
+        "KaynakID": "2",
+        "Kodu": "DemirFiyatlari_AnaGrup",
+        "Adi": "Ana Grup",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "6",
+        "KaynakID": "3",
+        "Kodu": "ScrapMonster_Amerika",
+        "Adi": "Amerika",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "7",
+        "KaynakID": "3",
+        "Kodu": "ScrapMonster_Cin",
+        "Adi": "Çin",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "8",
+        "KaynakID": "3",
+        "Kodu": "ScrapMonster_BatiAvrupa",
+        "Adi": "Batı Avrupa",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "9",
+        "KaynakID": "3",
+        "Kodu": "ScrapMonster_Dunya",
+        "Adi": "Dünya İhracat Pazarı",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "10",
+        "KaynakID": "4",
+        "Kodu": "CuSteel_AnaGrup",
+        "Adi": "Ana Grup",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "11",
+        "KaynakID": "4",
+        "Kodu": "CuSteel_Seaborne",
+        "Adi": "Seaborne",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "12",
+        "KaynakID": "4",
+        "Kodu": "CuSteel_Portside",
+        "Adi": "Portside",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "13",
+        "KaynakID": "4",
+        "Kodu": "CuSteel_Cost",
+        "Adi": "Cost",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "14",
+        "KaynakID": "5",
+        "Kodu": "Kardemir_AnaGrup",
+        "Adi": "Ana Grup",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "15",
+        "KaynakID": "6",
+        "Kodu": "Phoenix_USASteelBasePrices",
+        "Adi": "USA Steel Base Prices",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "16",
+        "KaynakID": "6",
+        "Kodu": "Phoenix_IronOreprices",
+        "Adi": "Iron Ore prices",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    },
+    {
+        "ID": "17",
+        "KaynakID": "6",
+        "Kodu": "Phoenix_Capacity",
+        "Adi": "Capacity",
+        "Aciklama": "",
+        "Sira": "\"0\""
+    }
+]

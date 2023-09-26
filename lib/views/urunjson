@@ -1,0 +1,371 @@
+[
+    {
+        "ID": "1",
+        "Kodu": "SogukHaddelenmisSac",
+        "Adi": "Soğuk Haddelenmiş Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "2",
+        "Adres": "soguk-haddelenmis-sac",
+        "Durum": "1"
+    },
+    {
+        "ID": "2",
+        "Kodu": "SicakHaddelenmisSac",
+        "Adi": "Sıcak Haddelenmiş Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "1",
+        "Adres": "sicak-haddelenmis-sac",
+        "Durum": "1"
+    },
+    {
+        "ID": "3",
+        "Kodu": "Slab",
+        "Adi": "Slab Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "7",
+        "Adres": "slab",
+        "Durum": "1"
+    },
+    {
+        "ID": "4",
+        "Kodu": "GalvanizSac",
+        "Adi": "Galvaniz Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "3",
+        "Adres": "galvaniz-sac",
+        "Durum": "1"
+    },
+    {
+        "ID": "5",
+        "Kodu": "BoyaliSac",
+        "Adi": "Boyalı Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "4",
+        "Adres": "boyali-sac",
+        "Durum": "1"
+    },
+    {
+        "ID": "6",
+        "Kodu": "TrapezSac",
+        "Adi": "Trapez Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "5",
+        "Adres": "trapez-sac",
+        "Durum": "1"
+    },
+    {
+        "ID": "7",
+        "Kodu": "SandvicPanel",
+        "Adi": "Sandviç Panel Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "6",
+        "Adres": "sandvic-panel",
+        "Durum": "0"
+    },
+    {
+        "ID": "8",
+        "Kodu": "Kutuk",
+        "Adi": "Kütük Demir Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "8",
+        "Adres": "kutuk-demir",
+        "Durum": "1"
+    },
+    {
+        "ID": "9",
+        "Kodu": "Demir",
+        "Adi": "İnşaat Demiri Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "9",
+        "Adres": "insaat-demiri",
+        "Durum": "1"
+    },
+    {
+        "ID": "10",
+        "Kodu": "CelikHasir",
+        "Adi": "Çelik Hasır Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "10",
+        "Adres": "celik-hasir",
+        "Durum": "1"
+    },
+    {
+        "ID": "11",
+        "Kodu": "NervurluKangal",
+        "Adi": "Nervürlü Kangal Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "11",
+        "Adres": "nervurlu-kangal",
+        "Durum": "1"
+    },
+    {
+        "ID": "12",
+        "Kodu": "DuzKangal",
+        "Adi": "Düz Kangal Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "12",
+        "Adres": "duz-kangal",
+        "Durum": "1"
+    },
+    {
+        "ID": "13",
+        "Kodu": "MetalHurda",
+        "Adi": "Metal Hurda Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "13",
+        "Adres": "metal-hurda",
+        "Durum": "1"
+    },
+    {
+        "ID": "14",
+        "Kodu": "MetalHurdaIcPiyasa",
+        "Adi": "Metal Hurda  Fiyatları(iç piyasa)",
+        "Aciklama": "NULL",
+        "Sira": "14",
+        "Adres": "metal-hurda-ic-piyasa",
+        "Durum": "1"
+    },
+    {
+        "ID": "15",
+        "Kodu": "DemirCevheri",
+        "Adi": "Demir Cevheri Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "15",
+        "Adres": "demir-cevheri",
+        "Durum": "1"
+    },
+    {
+        "ID": "16",
+        "Kodu": "DikissizBoru",
+        "Adi": "Dikişsiz Boru Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "16",
+        "Adres": "dikissiz-boru",
+        "Durum": "0"
+    },
+    {
+        "ID": "17",
+        "Kodu": "BoyunaKaynakliBoru",
+        "Adi": "Boyuna Kaynaklı Boru Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "17",
+        "Adres": "boyuna-kaynakli-boru",
+        "Durum": "0"
+    },
+    {
+        "ID": "18",
+        "Kodu": "HProfil",
+        "Adi": "H Profil Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "18",
+        "Adres": "h-profil",
+        "Durum": "0"
+    },
+    {
+        "ID": "19",
+        "Kodu": "Kosebent",
+        "Adi": "Köşebent Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "19",
+        "Adres": "kosebent",
+        "Durum": "0"
+    },
+    {
+        "ID": "20",
+        "Kodu": "Celik",
+        "Adi": "Çelik",
+        "Aciklama": "NULL",
+        "Sira": "20",
+        "Adres": "celik",
+        "Durum": "0"
+    },
+    {
+        "ID": "21",
+        "Kodu": "PaslanasCelik",
+        "Adi": "Paslanmaz Çelik Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "21",
+        "Adres": "paslanmaz-celik",
+        "Durum": "0"
+    },
+    {
+        "ID": "22",
+        "Kodu": "UretimMiktari",
+        "Adi": "Üretim Miktarı",
+        "Aciklama": "NULL",
+        "Sira": "22",
+        "Adres": "uretim-miktari",
+        "Durum": "0"
+    },
+    {
+        "ID": "23",
+        "Kodu": "Npu",
+        "Adi": "Npu Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "23",
+        "Adres": "npu",
+        "Durum": "0"
+    },
+    {
+        "ID": "24",
+        "Kodu": "Npi",
+        "Adi": "Npi Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "24",
+        "Adres": "npi",
+        "Durum": "0"
+    },
+    {
+        "ID": "25",
+        "Kodu": "Ipe",
+        "Adi": "Ipe Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "25",
+        "Adres": "ipe",
+        "Durum": "0"
+    },
+    {
+        "ID": "26",
+        "Kodu": "62Fefines",
+        "Adi": "62% Fe fines",
+        "Aciklama": "NULL",
+        "Sira": "26",
+        "Adres": "62-fe-fines",
+        "Durum": "0"
+    },
+    {
+        "ID": "27",
+        "Kodu": "LevhaSac",
+        "Adi": "Levha Sac Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "27",
+        "Adres": "levha-sac",
+        "Durum": "0"
+    },
+    {
+        "ID": "28",
+        "Kodu": "BilesikEndeks",
+        "Adi": "Bileşik Endeks",
+        "Aciklama": "NULL",
+        "Sira": "28",
+        "Adres": "bilesik-endeks",
+        "Durum": "0"
+    },
+    {
+        "ID": "29",
+        "Kodu": "SicakHaddelenmisInceSac1500",
+        "Adi": "Sıcak Haddelenmiş İnce Sac (1.5 mm)",
+        "Aciklama": "NULL",
+        "Sira": "29",
+        "Adres": "sicak-haddelenmis-ince-sac-1-5-mm",
+        "Durum": "0"
+    },
+    {
+        "ID": "30",
+        "Kodu": "SicakHaddelenmisRulo",
+        "Adi": "Sıcak Haddelenmiş Rulo Fiyatları",
+        "Aciklama": "NULL",
+        "Sira": "30",
+        "Adres": "sicak-haddelenmis-rulo",
+        "Durum": "0"
+    },
+    {
+        "ID": "31",
+        "Kodu": "62TenorDemirCevher",
+        "Adi": "%62 Tenör Demir Cevheri",
+        "Aciklama": "NULL",
+        "Sira": "31",
+        "Adres": "%62-tenor-demir-cevheri-4",
+        "Durum": "0"
+    },
+    {
+        "ID": "32",
+        "Kodu": "58TenorDemirCevher",
+        "Adi": "%58 Tenör Demir Cevheri",
+        "Aciklama": "NULL",
+        "Sira": "32",
+        "Adres": "%58-tenor-demir-cevheri-4",
+        "Durum": "0"
+    },
+    {
+        "ID": "33",
+        "Kodu": "65TenorDemirCevher",
+        "Adi": "%65 Tenör Demir Cevheri",
+        "Aciklama": "NULL",
+        "Sira": "33",
+        "Adres": "%65-tenor-demir-cevheri-4",
+        "Durum": "0"
+    },
+    {
+        "ID": "34",
+        "Kodu": "ParcaDemirCevheriKaliteli",
+        "Adi": "Parça Demir Cevheri Kaliteli",
+        "Aciklama": "NULL",
+        "Sira": "34",
+        "Adres": "parca-demir-cevheri-kaliteli",
+        "Durum": "0"
+    },
+    {
+        "ID": "35",
+        "Kodu": "KonsantreDemirCevheriKaliteli",
+        "Adi": "Konsantre Demir Cevheri Kaliteli",
+        "Aciklama": "NULL",
+        "Sira": "35",
+        "Adres": "konsantre-demir-cevheri-kaliteli",
+        "Durum": "0"
+    },
+    {
+        "ID": "36",
+        "Kodu": "DemirPeletKaliteli",
+        "Adi": "Demir Pelet kaliteli",
+        "Aciklama": "NULL",
+        "Sira": "36",
+        "Adres": "demir-pelet-kaliteli",
+        "Durum": "0"
+    },
+    {
+        "ID": "37",
+        "Kodu": "62TenorDemirCinAlimFiyati",
+        "Adi": "%62 Tenör Demir Çin Alım Fiyatı",
+        "Aciklama": "NULL",
+        "Sira": "37",
+        "Adres": "%62-tenor-demir-cin-alim-fiyati-4",
+        "Durum": "0"
+    },
+    {
+        "ID": "38",
+        "Kodu": "58TenorDemirCinAlimFiyati",
+        "Adi": "%58 Tenör Demir Çin Alım Fiyatı",
+        "Aciklama": "NULL",
+        "Sira": "38",
+        "Adres": "%58-tenor-demir-cin-alim-fiyati-4",
+        "Durum": "0"
+    },
+    {
+        "ID": "39",
+        "Kodu": "DemirKonsantresi",
+        "Adi": "Demir Konsatresi",
+        "Aciklama": "NULL",
+        "Sira": "39",
+        "Adres": "demir-konsatresi",
+        "Durum": "0"
+    },
+    {
+        "ID": "40",
+        "Kodu": "DemirParcaCevheri",
+        "Adi": "Demir Parça Cevheri",
+        "Aciklama": "NULL",
+        "Sira": "40",
+        "Adres": "demir-parca-cevheri",
+        "Durum": "0"
+    },
+    {
+        "ID": "41",
+        "Kodu": "DemirPelet",
+        "Adi": "Demir Pelet",
+        "Aciklama": "NULL",
+        "Sira": "41",
+        "Adres": "demir-pelet",
+        "Durum": "0"
+    }
+]
