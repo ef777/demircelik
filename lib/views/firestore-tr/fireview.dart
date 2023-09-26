@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demircelik/views/Comp.dart';
+import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
-import 'package:demircelik/views/db.dart';
+import 'package:demircelik/model-control/db.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;

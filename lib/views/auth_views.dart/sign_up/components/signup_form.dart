@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/already_have_an_account_acheck.dart';
-import '../../../../constants.dart';
-import '../../../area_and_product_view.dart';
+import '../../../../components/constants.dart';
+import '../../../anaview.dart';
 import '../../login/login_view.dart';
 
 class SignUpForm extends StatefulWidget {

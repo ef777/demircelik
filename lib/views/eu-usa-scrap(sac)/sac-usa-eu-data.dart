@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:demircelik/components/Comp.dart';
+import 'package:demircelik/components/LineChart.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -11,142 +13,39 @@ import 'package:kartal/kartal.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart' as dom;
 
-import 'Comp.dart';
-import '../components/LineChart.dart';
-
-/* all_historytable
-https://www.scrapmonster.com/prices/united-states-1-hms-price-history-chart-1-44
-// burada ameerika ve çin hurda alınıyor scrapmonsterdan */
-class UsAndChinaScrapmons extends StatefulWidget {
-  UsAndChinaScrapmons(
+// burada sıcak ve soğuk hac avrupa amerika
+class hacUsaEu extends StatefulWidget {
+  hacUsaEu(
       {super.key,
       required this.href,
       required this.title,
       required this.appbarTitle,
-      required this.isUSA});
+      required bool isAvrupa});
   final String href;
   final String title;
   final String appbarTitle;
-  final bool isUSA;
-
-  @override
-  State<UsAndChinaScrapmons> createState() => _UsAndChinaScrapmonsState();
-}
-
-class DataItem {
-  final String date;
-  final double price;
-  final String unit;
-
-  DataItem({required this.date, required this.price, required this.unit});
-}
-
-class _UsAndChinaScrapmonsState extends State<UsAndChinaScrapmons> {
-  Uri url = Uri.parse("");
-  var cnykuru = 0.0;
- Future<double> getusd() async {
-    final response = await http
-        .get(Uri.parse('https://api.exchangerate-api.com/v4/latest/CNY'));
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final rates = data['rates'];
-      final usdRate = rates['USD'];
-      return  await usdRate;
-    }
-
-    return 0;
-  }
-
-  CnyToUsd(usdRate, amount) {
-    print("çeviri");
-    return amount * usdRate;
-  }
-  List<DataItem> createDataItemsFromHtml(String htmlString, bool isusa) {
-    // Parse the HTML.
-    var document = parser.parse(htmlString);
-    dom.Element? table ;
-    if (isusa){
-   table = document.getElementById('all_historytable');
- print("bu amerika tablosu");
-  print(table.toString());
-
-    }
-    else{
-      table = document.querySelector('.tablescroll'); // Örnek olarak class ile seçme
-
-     /* table = document.getElementById('2_historytable'); */
-     print("çin tablosu ");
-      print(table!.outerHtml);
-    }
-    print("gelen div");
-    print(table.toString());
-    // Check that the number of divs is a multiple of 3 (date, price, unit).
-
-    // Find the tr elements in the tbody with id "all_historytable".
-    List<dom.Element> rows = table!.getElementsByTagName('tr');
-    if(isusa){
-      print("ilk element kaldırıldı");
-      rows.removeAt(0);
-    }
-    print("seçilen trler");
-    print(rows.toString());
-    List<DataItem> items = [];
-    for (dom.Element row in rows) {
-      List<dom.Element> cells = row.querySelectorAll('td');
-      print("seçilen tdler");
-      print(cells.toString());
-      print("ilk text price ");
-      print(cells[1].text);
-      print("bittş");
-      String date = cells[0].text;
-      print("date");
-      print(date);
-      double price = double.parse(cells[1].text);
-      print("price");
-      print(price);
-       price = CnyToUsd(cnykuru, price);
-print("çeviriden sonra "+price.toString());
-      String yeni = price.toStringAsFixed(2);
-      price = double.parse(yeni);
-      items.add(DataItem(date: date, price: price, unit: "USD"));
-    }
-
-    return items;
-  }
-
-  Future<List<DataItem>> fetchData(isUSA) async {
-    print("fetchdata çalıştı");
-    if (widget.isUSA) {
-      url = Uri.parse(
-          'https://www.scrapmonster.com/prices/united-states-1-hms-price-history-chart-1-44');
-    } else {
-      print("çin datası çekiliyor");
-      url = Uri.parse(
-          'https://www.scrapmonster.com/prices/china-1-hms-price-history-chart-2-44');
-    }
- 
+static Future<List<UsaItem>> UsaFetch(String countryid, String commodityid,
+      String startdate, String enddate) async {
+    print("UsaFetch çalıştı");
+    print("giden tarihler $startdate $enddate");
+    var url =
+        Uri.parse('https://www.scrapmonster.com/steelprice/gethistoricaldata');
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-   /*  var body = {
-      /* 
+    var body = {
       'startdate': startdate,
       'enddate': enddate,
       'countryid': countryid,
       'commodityid': commodityid,
-     */
-    }; */
+    };
 
     try {
-      var response = await http.get(
-        url,
-        headers: headers, /*  body: body */
-      );
+      var response = await http.post(url, headers: headers, body: body);
 
       if (response.statusCode == 200) {
         print("Response:");
         print(response.body);
         var document = parser.parse(response.body);
-        return createDataItemsFromHtml(document.body!.innerHtml, isUSA);
+        return createDataItemsFromHtml(document.body!.innerHtml);
       } else {
         print('Failed to fetch data. Status code: ${response.statusCode}');
         return [];
@@ -156,23 +55,96 @@ print("çeviriden sonra "+price.toString());
       return [];
     }
   }
+  @override
+  State<hacUsaEu> createState() => hacUsaEuState();
+}
+
+class UsaItem {
+  final String date;
+  final double price;
+  final String unit;
+
+  UsaItem({required this.date, required this.price, required this.unit});
+}
+
+List<UsaItem> createDataItemsFromHtml(String htmlString) {
+  // Parse the HTML.
+  var document = parser.parse(htmlString);
+
+  // Find the divs with class "col-4".
+  List<dom.Element> divs = document.getElementsByClassName('col-4');
+
+  // Check that the number of divs is a multiple of 3 (date, price, unit).
+  if (divs.length % 3 != 0) {
+    throw Exception('Unexpected number of divs');
+  }
+
+  // Create a list of DataItems.
+  List<UsaItem> items = [];
+  for (int i = 0; i < divs.length; i += 3) {
+    String date = divs[i].text;
+    double price = double.parse(divs[i + 1].text);
+    String unit = divs[i + 2].text;
+
+    items.add(UsaItem(date: date, price: price, unit: unit));
+  }
+
+  return items;
+}
+
+class hacUsaEuState extends State<hacUsaEu> {
+  
+
+  String date = "";
+
 /*  'startdate': '2023-04-04',
       'enddate': '2023-07-21',
       'countryid': '69',
       'commodityid': '594', */
+  String bolge = "";
+  String urun = "";
+  String tarih1 = "";
+  String tarih2 = "";
+  String gelenistek = "";
+  istek(istek, gtarih1, gtarih2) async {
+    if (istek == "avrupasicakhac") {
+      bolge = "71";
+      urun = "594";
+      tarih1 = "$gtarih1";
+      tarih2 = "$gtarih2";
+    }
+    if (istek == "usasogukhac") {
+      bolge = "69";
+      urun = "594";
+      tarih1 = "$gtarih1";
+      tarih2 = "$gtarih2";
+    }
+    if (istek == "usasicakhac") {
+      bolge = "69";
+      urun = "593";
+      tarih1 = "$gtarih1";
+      tarih2 = "$gtarih2";
+    }
+
+    /*  "69",
+        "594",
+        "2023-04-04",
+        "2023-07-21", */
+  }
 
   @override
   void initState() {
     getDate();
-getusd().then((value) => cnykuru = value);
     DateTime endDate = DateTime.now();
-    DateTime startDate = endDate.subtract(Duration(days: 7));
+    DateTime startDate = endDate.subtract(Duration(days: 90));
     picked = startDate;
     picked2 = endDate;
     ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
     sonbas = DateFormat('dd.MM.yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
+    istek(widget.href, ilkbas, sonbas);
+
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {});
@@ -180,10 +152,9 @@ getusd().then((value) => cnykuru = value);
 
   var urunid = "";
   var datatur = "";
-  String date = "";
   void getDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
     print(formattedDate);
     date = formattedDate;
   }
@@ -241,9 +212,9 @@ getusd().then((value) => cnykuru = value);
       });
   }
 
-  List<String> getAllDates(List<DataItem> items) {
+  List<String> getAllDates(List<UsaItem> items) {
     List<String> dates = [];
-    for (DataItem item in items) {
+    for (UsaItem item in items) {
       dates.add(item.date);
     }
     return dates;
@@ -253,11 +224,11 @@ getusd().then((value) => cnykuru = value);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-      future: fetchData(widget.isUSA),
+      future: hacUsaEu.UsaFetch(bolge, urun, tarih1, tarih2),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var data = snapshot.data;
-          List<DataItem> items = data;
+          List<UsaItem> items = data;
           var dates = getAllDates(items);
           return Scaffold(
               appBar: AppBar(

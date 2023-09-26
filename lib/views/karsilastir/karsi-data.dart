@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demircelik/views/Comp.dart';
+import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
-import 'package:demircelik/views/butunTurkiye.dart';
-import 'package:demircelik/views/fireview.dart';
-import 'package:demircelik/views/tumChina.dart';
-import 'package:demircelik/views/hacUsa-Eu.dart';
+import 'package:demircelik/views/defiyat-tr/tr-data.dart';
+import 'package:demircelik/views/firestore-tr/fireview.dart';
+import 'package:demircelik/views/sunsirs-ch/ch-data.dart';
+import 'package:demircelik/views/eu-usa-scrap(sac)/sac-usa-eu-data.dart';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

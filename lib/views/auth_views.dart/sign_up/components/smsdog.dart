@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../components/already_have_an_account_acheck.dart';
-import '../../../../constants.dart';
-import '../../../area_and_product_view.dart';
+import '../../../../components/constants.dart';
+import '../../../anaview.dart';
 import '../../login/login_view.dart';
 
 class SmsDog extends StatefulWidget {

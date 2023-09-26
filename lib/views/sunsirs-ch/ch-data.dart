@@ -12,9 +12,9 @@ import 'package:kartal/kartal.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart' as dom;
 
-import 'Comp.dart';
-import '../components/LineChart.dart';
-import 'kurdata.dart';
+import '../../components/Comp.dart';
+import '../../components/LineChart.dart';
+import '../../model-control/kurdata.dart';
     Kur kur = Get.find<Kur>();
 
 /* all_historytable

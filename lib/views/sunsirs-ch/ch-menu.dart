@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import 'avrupa_product.dart';
-import 'views/area_and_product_view.dart';
-import 'views/hacUsa-Eu.dart';
-import 'views/scrap-Us-China.dart';
-import 'views/tumChina.dart';
+import '../eu-usa-scrap(sac)/eu-menu.dart';
+import '../anaview.dart';
+import '../eu-usa-scrap(sac)/sac-usa-eu-data.dart';
+import '../usa-ch-scrap(hurda)/hurda-us-ch-data.dart';
+import 'ch-data.dart';
 
 class CinProductView extends StatelessWidget {
   const CinProductView({super.key});

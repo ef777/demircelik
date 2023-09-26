@@ -1,6 +1,6 @@
-import 'package:demircelik/views/area_and_product_view.dart';
-import 'package:demircelik/views/hacUsa-Eu.dart';
-import 'package:demircelik/views/karsilastirdetay.dart';
+import 'package:demircelik/views/anaview.dart';
+import 'package:demircelik/views/eu-usa-scrap(sac)/sac-usa-eu-data.dart';
+import 'package:demircelik/views/karsilastir/karsi-data.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 

@@ -2,13 +2,13 @@ import 'package:demircelik/views/auth_views.dart/sign_up/sign_up_view.dart';
 import 'package:demircelik/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:demircelik/main.dart';
-import 'package:demircelik/views/area_and_product_view.dart';
+import 'package:demircelik/views/anaview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/already_have_an_account_acheck.dart';
-import '../../../../constants.dart';
+import '../../../components/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

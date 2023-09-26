@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demircelik/main.dart';
 import 'package:demircelik/views/auth_views.dart/login/login_view.dart';
 import 'package:demircelik/views/auth_views.dart/sign_up/components/smsdog.dart';
-import 'package:demircelik/views/kurdata.dart';
+import 'package:demircelik/model-control/kurdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:get/get.dart';
 
-import 'area_and_product_view.dart';
+import 'anaview.dart';
     Kur kur = Get.find<Kur>();
 
 class SplashScreen extends StatefulWidget {

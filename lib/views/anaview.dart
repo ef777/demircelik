@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demircelik/avrupa_product.dart';
-import 'package:demircelik/cin_product.dart';
-import 'package:demircelik/views/adminpage.dart';
-import 'package:demircelik/views/amerika_product.dart';
-import 'package:demircelik/views/butunTurkiye.dart';
-import 'package:demircelik/views/karsilastir.dart';
+import 'package:demircelik/views/defiyat-tr/tr-menu.dart';
+import 'package:demircelik/views/eu-usa-scrap(sac)/eu-menu.dart';
+import 'package:demircelik/views/sunsirs-ch/ch-menu.dart';
+import 'package:demircelik/views/admin/adminpage.dart';
+import 'package:demircelik/views/eu-usa-scrap(sac)/us1-menu.dart';
+import 'package:demircelik/views/defiyat-tr/tr-data.dart';
+import 'package:demircelik/views/karsilastir/karsi-menu.dart';
 
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';

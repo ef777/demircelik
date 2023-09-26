@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import 'views/area_and_product_view.dart';
-import 'views/hacUsa-Eu.dart';
+import '../anaview.dart';
+import 'sac-usa-eu-data.dart';
 
 class AvrupaProductView extends StatelessWidget {
   const AvrupaProductView({super.key});

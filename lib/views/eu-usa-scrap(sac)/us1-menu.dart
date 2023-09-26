@@ -1,10 +1,10 @@
-import 'package:demircelik/views/area_and_product_view.dart';
-import 'package:demircelik/views/hacUsa-Eu.dart';
-import 'package:demircelik/views/scrap-Us-China.dart';
+import 'package:demircelik/views/anaview.dart';
+import 'package:demircelik/views/eu-usa-scrap(sac)/sac-usa-eu-data.dart';
+import 'package:demircelik/views/usa-ch-scrap(hurda)/hurda-us-ch-data.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import 'butunTurkiye.dart';
+import '../defiyat-tr/tr-data.dart';
 
 class AmerikaProductView extends StatelessWidget {
   const AmerikaProductView({super.key});

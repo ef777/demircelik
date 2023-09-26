@@ -8,7 +8,7 @@ import 'package:kartal/kartal.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'area_and_product_view.dart';
+import 'anaview.dart';
 
 class ProfilViews extends StatefulWidget {
   const ProfilViews({super.key});

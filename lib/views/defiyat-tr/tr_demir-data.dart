@@ -1,5 +1,5 @@
 import 'package:demircelik/components/LineChart.dart';
-import 'package:demircelik/views/kurdata.dart';
+import 'package:demircelik/model-control/kurdata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -14,17 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:lottie/lottie.dart';
-import 'Comp.dart';
 import 'package:intl/intl.dart';
 import 'dart:core';
 import 'package:html/dom.dart' as dom;
 import 'package:kartal/kartal.dart';
 
-import 'amerika_product.dart';
-import 'Comp.dart';
-import '../constants.dart';
-import '../model/demir_model.dart';
-import 'demir_page.dart';
+
+import 'tr_demir-data.dart';
 
 class TableDataYeni {
   final String date;
