@@ -192,7 +192,7 @@ class Comp12 extends StatelessWidget {
             Text(
                 title,
                 style: context.textTheme.titleMedium
-                    ?.copyWith(color: Colors.white, fontSize: 8),
+                    ?.copyWith(color: Colors.white, fontSize: 0),
               ),
               Row(
                 
@@ -208,7 +208,11 @@ class Comp12 extends StatelessWidget {
                 style:
                     context.textTheme.labelLarge?.copyWith(color: Colors.green),
               ),
-
+ Text(
+                "USD / Ton",
+                style: context.textTheme.titleMedium
+                    ?.copyWith(color: Colors.white, fontSize: 10),
+              ),
               ],),
               
             

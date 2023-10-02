@@ -5,6 +5,7 @@ import 'package:demircelik/components/LineChart.dart';
 import 'package:demircelik/model-control/us_ch_hurda_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:lottie/lottie.dart';
@@ -46,7 +47,34 @@ static Future<List<DataItem>> UsaFetch(String countryid, String commodityid,
         print("Response:");
         print(response.body);
         var document = parser.parse(response.body);
-        return createDataItemsFromHtml(document.body!.innerHtml);
+        List<DataItem> items = [];
+        items= createDataItemsFromHtml(document.body!.innerHtml);
+        items.forEach((item) {
+    try {
+         print("başladı");
+     DateTime dateTime = DateFormat('yyyy-MM-dd').parse(item.date);
+                print("başladı1");
+
+ var outputFormat = DateFormat('dd-MM-yyyy');
+          print("başladı2");
+
+   var outputDate = outputFormat.format(dateTime);
+            print("başladı3");
+
+    item.date = outputDate;
+    } catch (e) {
+      print("*${item.date}* Tarih uygun biçimde değil $e ");
+      
+    }
+  });  items.sort((a, b) {
+    print("sırala başladı");
+        DateFormat format = DateFormat("dd-MM-yyyy");
+    DateTime dateA = format.parse(a.date);
+    DateTime dateB = format.parse(b.date);
+    return dateA.compareTo(dateB);
+  });
+
+        return  items;
       } else {
         print('Failed to fetch data. Status code: ${response.statusCode}');
         return [];
@@ -131,7 +159,7 @@ class hacUsaEuState extends State<hacUsaEu> {
   void initState() {
     getDate();
     DateTime endDate = DateTime.now();
-    DateTime startDate = endDate.subtract(Duration(days: 90));
+    DateTime startDate = endDate.subtract(Duration(days: 120));
     picked = startDate;
     picked2 = endDate;
     ilkbas = DateFormat('dd-MM-yyyy').format(startDate);

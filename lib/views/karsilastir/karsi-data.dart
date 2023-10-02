@@ -249,9 +249,12 @@ List<DataItem> ChnDemirData = [];
    ChnDemirData = await   ch_tum_model.ch_api_db( Uri.parse("http://www.sunsirs.com/tr/prodetail-195.html"), _selectedDate, _selectedDate2);
       print("çin veri");
       print(ChnDemirData);
-      print("çin veri Sıcak haddelenmiş sac bitti");
+      print("çin veri Sıcak haddelenmiş sac bitti?");
 
    List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "593","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
+   
+         print("dataitems geçt");
+
                         return [fireproduct , ChnDemirData,DataItemss]; 
 //98* çin de eklenecek dbden çi ok*
 }
@@ -270,7 +273,7 @@ List<DataItem> ChnDemirData = [];
    ChnDemirData = await   ch_tum_model.ch_api_db( Uri.parse("http://www.sunsirs.com/tr/prodetail-318.html") , _selectedDate, _selectedDate2);
       print("çin veri");
       print(ChnDemirData);
-      print("çin veri Sıcak haddelenmiş sac bitti");
+      print("çin veri Sıcak haddelenmiş sac bitti!!!");
 
    List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "594", "_selectedDate", "_selectedDate2");
                         List<DataItem> EUitems  = await hacUsaEu.UsaFetch("71", "594", "_selectedDate", "_selectedDate2");
@@ -282,7 +285,7 @@ List<DataItem> ChnDemirData = [];
 }
  List<DataItem> DataItemss = [];
  String usaformatdate(String date) {
-  List<String> dateParts = date.split('.');
+  List<String> dateParts = date.split('-');
   if (dateParts.length != 3) {
     throw Exception("Geçersiz tarih formatı");
   }

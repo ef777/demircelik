@@ -47,7 +47,13 @@ class Us_Ch_Hurdamodel {
   }
    newList.forEach((item) {
     try {
-     item.date =  Datacontroller.formatallDateString( item.date);
+   //  item.date =  Datacontroller.formatallDateString( item.date);
+   List<String> parts = item.date.split('-');
+    String day = parts[2].padLeft(2, '0');
+    String month = parts[1].padLeft(2, '0');
+    String year = parts[0];
+    item.date = '$day-$month-$year';
+
       print("Tarih uygun biçimde ${item.date}");
     } catch (e) {
       print("*${item.date}* Tarih uygun biçimde değil $e ");
@@ -56,12 +62,14 @@ class Us_Ch_Hurdamodel {
     }
   });
   newList.sort((a, b) {
-    DateTime dateA = DateTime.parse(a.date);
-    DateTime dateB = DateTime.parse(b.date);
+         DateFormat format = DateFormat("dd-MM-yyyy");
+
+    DateTime dateA = format.parse(a.date);
+    DateTime dateB = format.parse(b.date);
     return dateA.compareTo(dateB);
   });
   return newList;
-} //h
+} 
 
   static Future<List<DataItem>> fetch_us_hurda_db_ve_api(isUSA ,String ilktarih,String sontarih) async{
 

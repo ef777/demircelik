@@ -121,7 +121,8 @@ return await son;
   }
    newList.forEach((item) {
     try {
-     item.date =  Datacontroller.formatallDateString( item.date);
+      print("aganda gelen tarihler ${item.date.toString()}" );
+     //item.date =  Datacontroller.formatallDateString( item.date);
       print("Tarih uygun biçimde");
         
     } catch (e) {
@@ -131,10 +132,14 @@ return await son;
     }
   });
   newList.sort((a, b) {
-    DateTime dateA = DateTime.parse(a.date);
-    DateTime dateB = DateTime.parse(b.date);
+    print("sırala başladı");
+        DateFormat format = DateFormat("dd-MM-yyyy");
+    DateTime dateA = format.parse(a.date);
+    DateTime dateB = format.parse(b.date);
     return dateA.compareTo(dateB);
   });
+      print("sırala bitti");
+
   return newList;
 } //h
 
@@ -191,11 +196,16 @@ return await son;
         List<DataItem> son = await createDataItemsFromHtml(document.body!.innerHtml);
 son.forEach((item) {
     try {
- 
+         print("başladı");
      DateTime dateTime = DateFormat('yyyy-MM-dd').parse(item.date);
-       
+                print("başladı1");
+
  var outputFormat = DateFormat('dd-MM-yyyy');
+          print("başladı2");
+
    var outputDate = outputFormat.format(dateTime);
+            print("başladı3");
+
     item.date = outputDate;
     } catch (e) {
       print("*${item.date}* Tarih uygun biçimde değil $e ");
@@ -203,7 +213,13 @@ son.forEach((item) {
       // Örnek: item.date = "Bir uygun biçim";
     }
   });
-
+  son.sort((a, b) {
+    print("sırala başladı");
+        DateFormat format = DateFormat("dd-MM-yyyy");
+    DateTime dateA = format.parse(a.date);
+    DateTime dateB = format.parse(b.date);
+    return dateA.compareTo(dateB);
+  });
         return son;
       } else {
         print('Failed to fetch data. Status code: ${response.statusCode}');

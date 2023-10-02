@@ -3,35 +3,8 @@ import 'package:demircelik/views/firestore-tr/fireview.dart';
 import 'package:intl/intl.dart';
 
 class Datacontroller {
- 
-static String formatallDateString(String date) {
-  // İlk olarak / karakterinin varlığına göre biçimi tespit etmeye çalışın
-  if (date.contains("/")) {
-    try {
-      // / biçimini - biçimine dönüştür
-      DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
-      return DateFormat('dd-MM-yyyy').format(dateTime);
-    } catch (e) {
-      // Hatalı biçim, orijinal tarih dizesini geri döndür
-      return date;
-    }
-  } else if (date.contains("-")) {
-    try {
-      // - biçimini / biçimine dönüştür
-  DateTime dateTime = DateFormat('dd-MM-yyyy').parse(date);
- date = DateFormat('dd-MM-yyyy').format(dateTime);
-  
 
-      return date;
-    } catch (e) {
-      // Hatalı biçim, orijinal tarih dizesini geri döndür
-      return date;
-    }
-  } else {
-    // Hem / hem de - karakterleri içermiyor, orijinal tarih dizesini geri döndür
-    return date;
-  }
-}
+
 static getDate() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd-MM-yyyy').format(now);

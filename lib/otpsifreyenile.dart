@@ -1,5 +1,8 @@
+import 'package:demircelik/main.dart';
+import 'package:demircelik/views/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   @override
@@ -22,6 +25,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     phoneController.text = "";
     otpController.text = "";
   }
+  final AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +175,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               child: Text("KAYDET"),
               onPressed: () {
                 if(newPasswordCtrl.text.length >= 6) {
+                                    authController.login(); // Oturum açıldığında
+
                   Navigator.pop(context, newPasswordCtrl.text);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (context) {
+          return SplashScreen();
+        },
+      ), (route) => false);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Şifre en az 6 karakter olmalıdır!"))
