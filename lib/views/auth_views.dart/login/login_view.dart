@@ -1,3 +1,4 @@
+import 'package:demircelik/otpsifreyenile.dart';
 import 'package:demircelik/views/auth_views.dart/sign_up/sign_up_view.dart';
 import 'package:demircelik/views/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -217,11 +218,23 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(
             press: () {
-              Navigator.pushReplacement(
+              Navigator.pushReplacement( 
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     return const SignUpScreen();
+                  },
+                ),
+              );
+            },
+          ),
+           Forget_pass(
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return  ResetPasswordPage();
                   },
                 ),
               );

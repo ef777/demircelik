@@ -36,11 +36,11 @@ class AmerikaProductView extends StatelessWidget {
                 onTap: () => context.navigateToPage(hacUsaEu(
                   isAvrupa: false,
                   appbarTitle: "Sıcak Haddelenmiş Sac Fiyatı",
-                  title: "Sıcak Haddelenmiş Sac",
+                  title: "Sıcak Haddelenmiş Sac",  
                   href: "usasicakhac",
                 )),
                 image:
-                    "https://www.atolye10.com/wp-content/uploads/2018/04/ahsap-dilim-kutuk.jpg",
+                    "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
               AreaContainer(
@@ -51,7 +51,7 @@ class AmerikaProductView extends StatelessWidget {
                   href: "usasogukhac",
                 )),
                 image:
-                    "https://www.gundogdudemircelik.com/site_document/sayfa_img/CMARE6356_resim_16_6_2017_16_b.jpg",
+                    "soguksac.png",
                 title: "Soğuk Haddelenmiş Sac",
               ),
               AreaContainer(
@@ -62,7 +62,7 @@ class AmerikaProductView extends StatelessWidget {
                   href:
                       "https://www.scrapmonster.com/prices/united-states-1-hms-price-history-chart-1-44",
                 )),
-                image: "https://ayescelik.com/images/kangal_demir_7.jpg",
+                image: "ithalhurda.png",
                 title: "Çelik Hurda Fiyatı",
               ),
             ],

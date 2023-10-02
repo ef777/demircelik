@@ -36,7 +36,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-195.html",
                 )),
                 image:
-                    "https://www.gundogdudemircelik.com/site_document/sayfa_img/CMARE6356_resim_16_6_2017_16_b.jpg",
+                    "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
               AreaContainer(
@@ -47,7 +47,7 @@ class CinProductView extends StatelessWidget {
                       "https://www.scrapmonster.com/steel-prices/cold-rolled-coil-prices/594",
                   isUSA: false,
                 )),
-                image: "https://ayescelik.com/images/kangal_demir_7.jpg",
+                image: "ithalhurda.png",
                 title: "Çelik Hurda Fiyatı ",
               ),
               AreaContainer(
@@ -57,7 +57,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-318.html",
                 )),
                 image:
-                    "https://www.gundogdudemircelik.com/site_document/sayfa_img/CMARE6356_resim_16_6_2017_16_b.jpg",
+                    "soguksac.png",
                 title: "Soğuk Haddelenmiş Sac Fiyatı",
               ),
               AreaContainer(
@@ -67,7 +67,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-301.html",
                 )),
                 image:
-                    "https://www.galvanizlisac.biz/galvaniz/galeri/galvanizli-sac-dkp-sac-boyali-sac-trapes-siyah-sac17.jpg",
+                    "galvanizsac.png",
                 title: "Galvaniz Sac Fiyatı",
               ),
               AreaContainer(
@@ -76,7 +76,7 @@ class CinProductView extends StatelessWidget {
                   title: "Boyalı Sac",
                   href: "http://www.sunsirs.com/tr/prodetail-300.html",
                 )),
-                image: "https://www.eryilmazmetal.com/tr/img/boyali-sac.jpg",
+                image: "boyali-sac.jpg",
                 title: "Boyalı Sac Fiyatı",
               ),
               AreaContainer(
@@ -86,7 +86,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-634.html",
                 )),
                 image:
-                    "https://www.karacapaslanmaz.com/imaj/makale-gorselleri/paslanmaz-saclar-karaca-paslanmaz.jpg",
+                    "paslanmaz.jpg",
                 title: "Paslanmaz Çelik Sac Fiyatı",
               ),
               AreaContainer(
@@ -96,7 +96,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-262.html",
                 )),
                 image:
-                    "https://cdn.karacametal.com/yuklemeler/blog/celik-profil-ne-demek.jpg",
+                    "celikpro.jpg",
                 title: "Çelik Profil Fiyatı",
               ),
               AreaContainer(
@@ -106,7 +106,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-927.html",
                 )),
                 image:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCil7H94aMSWJzlz3QHYAdZa3OvCkVuM-pCZbtpk3UTDhhBWs4IdT2MLbxqlD-0xlwRJI&usqp=CAU",
+                    "insaatdemiri.png",
                 title: "İnşaat Demiri Fiyatı",
               ),
               AreaContainer(
@@ -116,7 +116,7 @@ class CinProductView extends StatelessWidget {
                   href: "http://www.sunsirs.com/tr/prodetail-961.html",
                 )),
                 image:
-                    "https://cdn1.ntv.com.tr/gorsel/zNggTEdUQEWWKyHJ6_uYJw.jpg?width=952&height=540&mode=both&scale=both",
+                    "demircevher.png",
                 title: "Demir Cevheri Fiyatı",
               ),
             ],

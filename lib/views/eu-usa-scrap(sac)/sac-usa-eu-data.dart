@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
+import 'package:demircelik/model-control/us_ch_hurda_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,9 +25,9 @@ class hacUsaEu extends StatefulWidget {
   final String href;
   final String title;
   final String appbarTitle;
-static Future<List<UsaItem>> UsaFetch(String countryid, String commodityid,
+static Future<List<DataItem>> UsaFetch(String countryid, String commodityid,
       String startdate, String enddate) async {
-    print("UsaFetch çalıştı");
+    print("UsaFetch çalıştı!");
     print("giden tarihler $startdate $enddate");
     var url =
         Uri.parse('https://www.scrapmonster.com/steelprice/gethistoricaldata');
@@ -59,15 +60,9 @@ static Future<List<UsaItem>> UsaFetch(String countryid, String commodityid,
   State<hacUsaEu> createState() => hacUsaEuState();
 }
 
-class UsaItem {
-  final String date;
-  final double price;
-  final String unit;
 
-  UsaItem({required this.date, required this.price, required this.unit});
-}
 
-List<UsaItem> createDataItemsFromHtml(String htmlString) {
+List<DataItem> createDataItemsFromHtml(String htmlString) {
   // Parse the HTML.
   var document = parser.parse(htmlString);
 
@@ -80,13 +75,13 @@ List<UsaItem> createDataItemsFromHtml(String htmlString) {
   }
 
   // Create a list of DataItems.
-  List<UsaItem> items = [];
+  List<DataItem> items = [];
   for (int i = 0; i < divs.length; i += 3) {
     String date = divs[i].text;
     double price = double.parse(divs[i + 1].text);
     String unit = divs[i + 2].text;
 
-    items.add(UsaItem(date: date, price: price, unit: unit));
+    items.add(DataItem(date: date, price: price, unit: unit));
   }
 
   return items;
@@ -139,8 +134,8 @@ class hacUsaEuState extends State<hacUsaEu> {
     DateTime startDate = endDate.subtract(Duration(days: 90));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
     istek(widget.href, ilkbas, sonbas);
@@ -154,7 +149,7 @@ class hacUsaEuState extends State<hacUsaEu> {
   var datatur = "";
   void getDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     print(formattedDate);
     date = formattedDate;
   }
@@ -175,7 +170,9 @@ class hacUsaEuState extends State<hacUsaEu> {
     );
     if (picked != null)
       setState(() {
-        _selectedDate = DateFormat('dd.MM.yyyy').format(picked!);
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
+        print("ilk tarih" + _selectedDate);
+        tarih1 = _selectedDate;
       });
   }
 
@@ -189,6 +186,7 @@ class hacUsaEuState extends State<hacUsaEu> {
 
     if (picked2 != null)
       setState(() {
+
         if (picked2!.isBefore(picked!)) {
           showDialog(
               context: context,
@@ -207,14 +205,16 @@ class hacUsaEuState extends State<hacUsaEu> {
                 );
               });
         } else {
-          _selectedDate2 = DateFormat('dd.MM.yyyy').format(picked2!);
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
+          print("son tarih" + _selectedDate2);
+          tarih2 = _selectedDate2;
         }
       });
   }
 
-  List<String> getAllDates(List<UsaItem> items) {
+  List<String> getAllDates(List<DataItem> items) {
     List<String> dates = [];
-    for (UsaItem item in items) {
+    for (DataItem item in items) {
       dates.add(item.date);
     }
     return dates;
@@ -228,7 +228,7 @@ class hacUsaEuState extends State<hacUsaEu> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var data = snapshot.data;
-          List<UsaItem> items = data;
+          List<DataItem> items = data;
           var dates = getAllDates(items);
           return Scaffold(
               appBar: AppBar(

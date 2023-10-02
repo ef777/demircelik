@@ -87,12 +87,14 @@ class TableDataYeni {
       String numericPart = q8dmatches.first.group(0) ?? "0";
       q8d = double.parse(numericPart.replaceAll(",", ""));
             q8d = TryToUsd(usd, q8d);
+          q8d =  q8d - (q8d * 0.18);
 
     }
     if (q10dmatches.isNotEmpty) {
       String numericPart = q10dmatches.first.group(0) ?? "0";
       q10d = double.parse(numericPart.replaceAll(",", ""));
                   q10d = TryToUsd(usd, q10d);
+                   q10d =  q10d - (q10d * 0.18);
 
     }
     if (q12_32dmatches.isNotEmpty) {
@@ -100,6 +102,7 @@ class TableDataYeni {
       String numericPart = q12_32dmatches.first.group(0) ?? "0";
       q12_32d = double.parse(numericPart.replaceAll(",", ""));
                         q12_32d = TryToUsd(usd, q12_32d);
+                        q12_32d =  q12_32d - (q12_32d * 0.18);
 
     }
 
@@ -269,8 +272,8 @@ class _DemirYeniState extends State<DemirYeni> {
     DateTime startDate = endDate.subtract(Duration(days: 7));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
     super.initState();
@@ -283,7 +286,7 @@ class _DemirYeniState extends State<DemirYeni> {
   String date = "";
   void getDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     print(formattedDate);
     date = formattedDate;
   }
@@ -304,7 +307,7 @@ class _DemirYeniState extends State<DemirYeni> {
     );
     if (picked != null)
       setState(() {
-        _selectedDate = DateFormat('dd.MM.yyyy').format(picked!);
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
       });
   }
 
@@ -336,7 +339,7 @@ class _DemirYeniState extends State<DemirYeni> {
                 );
               });
         } else {
-          _selectedDate2 = DateFormat('dd.MM.yyyy').format(picked2!);
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
         }
       });
   }
@@ -365,7 +368,7 @@ class _DemirYeniState extends State<DemirYeni> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      LineChartSample2(
+                      LineCharScrapmonster(
                         dates: bolgeler![_selectedRegionIndex]
                             .tDataYeni
                             .map((e) => e.date)

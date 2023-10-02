@@ -34,3 +34,36 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
     );
   }
 }
+class Forget_pass extends StatelessWidget {
+  final Function? press;
+  const Forget_pass({
+    Key? key,
+    
+    required this.press,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+         "Forget Password ?",
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        GestureDetector(
+          onTap: press as void Function()?,
+          child: Text(
+            "Password Reset",
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}

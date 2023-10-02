@@ -38,7 +38,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "Demir Cevheri",
                 )),
                 image:
-                    "https://geoim.bloomberght.com/2021/12/07/ver1638865879/2293767_1200x627.jpg",
+                    "demircevher.png",
                 title: "Demir Cevheri",
               ),
               AreaContainer(
@@ -47,7 +47,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "İnşaat Demiri",
                 )),
                 image:
-                    "https://ayescelik.com/images/kangal_demir_7.jpg",
+                    "insaatdemiri.png",
                 title: "İnşaat Demiri",
               ),
               
@@ -58,7 +58,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
                 )),
                 image:
-                    "https://www.gundogdudemircelik.com/site_document/sayfa_img/CMARE6356_resim_16_6_2017_16_b.jpg",
+                    "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
                AreaContainer(
@@ -67,7 +67,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
                 )),
                 image:
-                    "https://media.istockphoto.com/id/915059294/tr/vekt%C3%B6r/demir-fe-kimyasal-element-simgesi.jpg?s=170667a&w=0&k=20&c=PUZPzwx7iCnHuICciFxdGLbsVTUHq6jQ2mCzEZItGSs=",
+                    "sicaksac.png",
                 title: "Soğuk Haddelenmiş Sac",
               ), AreaContainer(
                 onTap: () => context.navigateToPage(KarsilastirDetay (id:"4",
@@ -75,7 +75,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "Galvaniz sac",
                 )),
                 image:
-                    "https://ayescelik.com/images/kangal_demir_7.jpg",
+                    "galvanizsac.png",
                 title: "Galvaniz sac",
               ),
                 AreaContainer(
@@ -84,7 +84,7 @@ class KarsilastirmaMenu extends StatelessWidget {
                 title: "Hurda",
                 )),
                 image:
-                    "https://kalkangeridonusum.com/wp-content/uploads/2021/04/hurda-demir.jpg",
+                    "ithalhurda.png",
                 title: "Hurda",
               ),
             ],

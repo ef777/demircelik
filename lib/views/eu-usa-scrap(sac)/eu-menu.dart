@@ -38,7 +38,7 @@ class AvrupaProductView extends StatelessWidget {
                   href: "avrupasicakhac",
                 )),
                 image:
-                    "https://www.gundogdudemircelik.com/site_document/sayfa_img/CMARE6356_resim_16_6_2017_16_b.jpg",
+                    "soguksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
             ],

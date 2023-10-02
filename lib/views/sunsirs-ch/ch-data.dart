@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:demircelik/model-control/china_tum_model.dart';
+import 'package:demircelik/model-control/us_ch_hurda_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,10 +19,6 @@ import '../../components/LineChart.dart';
 import '../../model-control/kurdata.dart';
     Kur kur = Get.find<Kur>();
 
-/* all_historytable
-https://www.scrapmonster.com/prices/united-states-1-hms-price-history-chart-1-44
-// burada ameerika ve çin hurda alınıyor scrapmonsterdan */
-
 class ChinaData extends StatefulWidget {
   ChinaData({
     super.key,
@@ -32,84 +30,16 @@ class ChinaData extends StatefulWidget {
   final String title;
   final String appbarTitle;
 
-  static CnyToUsd(usdRate, amount) {
-    print("çeviri");
-    return amount * usdRate;
-  }
-  static List<ChinaDataitem> createChinaDataitemsFromHtml(String htmlString, ) {
-    // Parse the HTML.
-    var document = parser.parse(htmlString);
-    print("gelen doc");
-    print(document.toString());
-    // Find the tr elements in the table.
-    List<dom.Element> rows = document.querySelectorAll('table tr');
-    print("table rowlar");
-    print(rows.toString());
-    List<ChinaDataitem> items = [];
-
-    // Starting from index 1, to skip the header row.
-    for (int i = 1; i < rows.length; i++) {
-      List<dom.Element> cells = rows[i].querySelectorAll('td');
-
-      double price = double.parse(cells[2].text);
-      String date = cells[3].text;
-      print("çevirlmeden önce fiyat "+price.toString());
-      print( kur.cnyValue.toString() + "kur.cnyValue");
-      double cnykuru = kur.cnyValue;
- price = CnyToUsd(cnykuru, price);
-      print("çeviriden sonra "+price.toString());
-      String yeni = price.toStringAsFixed(2);
-      price = double.parse(yeni);
-      items.add(ChinaDataitem(price: price, date: date, unit: "USD"));
-    }
-
-    return items;
-  }
-
- static Future<List<ChinaDataitem>> ChinaFetchData(urlson) async {
-    print("ChinaFetchData çalıştı");
-    print("giden url" + urlson.toString());
-    /* var url = Uri.parse(
-        'https://www.scrapmonster.com/prices/united-states-1-hms-price-history-chart-1-44'); */
-
-    try {
-      var response = await http.post(
-        urlson,
-      );
-
-      if (response.statusCode == 200) {
-        print("Response:");
-        print(response.bodyBytes.toString());
-        print("Response bitti:");
-
-        var document = parser.parse(response.bodyBytes);
-        print("doc");
-        print(document.toString());
-        return createChinaDataitemsFromHtml(document.body!.innerHtml);
-      } else {
-        print('Failed to fetch data. Status code: ${response.statusCode}');
-        return [];
-      }
-    } catch (e) {
-      print('Error during data fetching: $e');
-      return [];
-    }
-  }
+ 
+  
 
   @override
-  State<ChinaData> createState() => UsAndChinaScrapmonsState();
+  State<ChinaData> createState() => ChinaView();
 }
 
-class ChinaDataitem {
-  final String date;
-  final double price;
-  final String unit;
 
-  ChinaDataitem({required this.date, required this.price, required this.unit});
-}
 
-class UsAndChinaScrapmonsState extends State<ChinaData> {
-  Uri urlson = Uri.parse('http://www.sunsirs.com/tr/prodetail-195.html');
+class ChinaView extends State<ChinaData> {
  
 /*  'startdate': '2023-04-04',
       'enddate': '2023-07-21',
@@ -122,8 +52,8 @@ class UsAndChinaScrapmonsState extends State<ChinaData> {
     DateTime startDate = endDate.subtract(Duration(days: 7));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
     super.initState();
@@ -157,7 +87,7 @@ class UsAndChinaScrapmonsState extends State<ChinaData> {
     );
     if (picked != null)
       setState(() {
-        _selectedDate = DateFormat('dd.MM.yyyy').format(picked!);
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
       });
   }
 
@@ -189,14 +119,14 @@ class UsAndChinaScrapmonsState extends State<ChinaData> {
                 );
               });
         } else {
-          _selectedDate2 = DateFormat('dd.MM.yyyy').format(picked2!);
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
         }
       });
   }
 
- static List<String> getAllDates(List<ChinaDataitem> items) {
+ static List<String> getAllDates(List<DataItem> items) {
     List<String> dates = [];
-    for (ChinaDataitem item in items) {
+    for (DataItem item in items) {
       dates.add(item.date);
     }
     return dates;
@@ -204,12 +134,13 @@ class UsAndChinaScrapmonsState extends State<ChinaData> {
 
   @override
   Widget build(BuildContext context) {
+   Uri url= Uri.parse(widget.href);
     return FutureBuilder<dynamic>(
-      future: ChinaData.ChinaFetchData(Uri.parse(widget.href)),
+      future: ch_tum_model.ch_api_db(url, _selectedDate, _selectedDate2 ),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var data = snapshot.data;
-          List<ChinaDataitem> items = data;
+          List<DataItem> items = data;
           var dates = getAllDates(items);
           return Scaffold(
               appBar: AppBar(
@@ -226,24 +157,7 @@ class UsAndChinaScrapmonsState extends State<ChinaData> {
                         title: widget.title,
                         price: items[0].price.toString(),
                       ),
-                      /*  DropdownButton<int>(
-                        value: _selectedRegionIndex,
-                        items: List<DropdownMenuItem<int>>.generate(
-                          bolgeler!.length,
-                          (index) => DropdownMenuItem<int>(
-                            value: index,
-                            child: Text(
-                              bolgeler![index].name ?? "",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            _selectedRegionIndex = newValue ?? 0;
-                          });
-                        },
-                      ), */
+                    
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,

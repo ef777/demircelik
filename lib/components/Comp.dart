@@ -165,8 +165,8 @@ class Comp12 extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-        padding: EdgeInsets.fromLTRB(3, 5, 10, 3),
-        height: size.height * 0.15,
+        padding: EdgeInsets.fromLTRB(2, 3, 5, 2),
+        height: size.height * 0.08,
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -182,32 +182,37 @@ class Comp12 extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Text(
+             
+   SizedBox(
+                height: 4,
+              ),
+            Text(
+                title,
+                style: context.textTheme.titleMedium
+                    ?.copyWith(color: Colors.white, fontSize: 8),
+              ),
+              Row(
+                
+                     crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+ Text(
                   date,
                   style: context.textTheme.titleMedium
                       ?.copyWith(color: Colors.white),
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                title,
-                style: context.textTheme.titleMedium
-                    ?.copyWith(color: Colors.white),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
+                ),   Text(
                 price,
                 style:
                     context.textTheme.labelLarge?.copyWith(color: Colors.green),
               ),
+
+              ],),
+              
+            
+            
             ],
           ),
         ));

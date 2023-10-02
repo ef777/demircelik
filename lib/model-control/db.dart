@@ -1,9 +1,50 @@
 import 'dart:io';
 
+import 'package:demircelik/model-control/fireModel.dart';
+import 'package:demircelik/views/firestore-tr/fireview.dart';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+
+
+class dbcontroller{
+
+static List<FireProduct> addProductsToList(List<DbProduct> dbProducts, List<FireProduct> fireProducts) {
+  List<FireProduct> newList = [...fireProducts]; // Mevcut listeyi kopyalayın
+
+  for (var dbProduct in dbProducts) {
+    FireProduct fireProduct = FireProduct(
+      id: dbProduct.id,
+      countryId: dbProduct.groupId,
+      date: dbProduct.date, // Tarihi formatlayın
+      price: dbProduct.price,
+      unit: dbProduct.unit,
+    );
+    newList.add(fireProduct);
+  }
+
+  return newList;
+}
+  
+  static Future<List<DbProduct>> querydb(DateTime start,DateTime end,String urunid,String grupid) async{
+   final startDate = DateTime(start.year, start.month,  start.day);
+    final endDate = DateTime(end.year, end.month,  end.day); 
+         var dbdat = await DatabaseHelper().getDataByDateAndIds(
+      startDate,
+      endDate, 
+      urunid, 
+      grupid,
+    );
+  /*   print("querydb sonuc");
+    print(dbdat.toList());
+   dbdat.forEach((element) {
+      print(element.date);
+    }); */
+    return dbdat;
+  } 
+}
+
 class DbProduct {
   
   final String id;
@@ -28,8 +69,9 @@ class DbProduct {
 
   factory DbProduct.fromJson(Map<String, dynamic> json) {
       DateTime parsedDate = DateTime.parse(json['Tarih']);
-  String formattedDate = '${parsedDate.day.toString().padLeft(2, '0')}/${parsedDate.month.toString().padLeft(2, '0')}/${parsedDate.year}';
+  String formattedDate = '${parsedDate.day.toString().padLeft(2, '0')}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.year}';
    // Fiyatı noktadan sonrasını atarak ve noktayı kaldırarak alın
+   print(formattedDate.toString()+  "işte db");
    String priceString = json['Fiyat'];
   int dotIndex = priceString.indexOf('.');
   

@@ -108,6 +108,13 @@ class TurkeyAllTabble {
       print("tds fiyat " + tds[0].text);
       print("hop fiyat " + tds[1].text);
     var date = tds.length > 0 ? tds[0].text.trim() : '';
+    print("pşt date" + date);
+     DateTime dateTime = DateFormat('dd.MM.yyyy').parse(date);
+       
+ var outputFormat = DateFormat('dd-MM-yyyy');
+   var outputDate = outputFormat.format(dateTime);
+   date = outputDate;
+
     var price = tds.length > 1 ? tds[1].text.trim() : '';
     print("tds" + tds.toString() + "tds");
   /*     print("tds fiyat " + tds[0].text);
@@ -124,8 +131,10 @@ print("ilk gelen fiyat" + price);
       print("çevrilecek double"+ numericPart);
 
       // 19,350 TL + KDV
-      priceNumber = double.parse(numericPart.replaceAll(",", ""));
 
+      priceNumber = double.parse(numericPart.replaceAll(",", ""));
+   var cikar = priceNumber * 0.18;
+     priceNumber = priceNumber - cikar;
 
       print("çevrilen double"+priceNumber.toString()); // prints: 19500.0 or 570.0
     } else {
@@ -144,6 +153,10 @@ print("ilk gelen fiyat" + price);
    var usd= kur.usdValue;
 
       priceNumber = TryToUsd(usd, priceNumber);
+      //yüzde 18 al
+     
+     var cikar = priceNumber * 0.18;
+     priceNumber = priceNumber - cikar;
       print("priceNumber bu" + priceNumber.toString());
       unit = "USD";
       price = priceNumber.toString() + " " + unit + " KDV";
@@ -316,8 +329,8 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
     DateTime startDate = endDate.subtract(Duration(days: 7));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
     super.initState();
@@ -339,7 +352,7 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
   String date = "";
   void getDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     print(formattedDate);
     date = formattedDate;
   }
@@ -360,7 +373,7 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
     );
     if (picked != null)
       setState(() {
-        _selectedDate = DateFormat('dd.MM.yyyy').format(picked!);
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
       });
   }
 
@@ -392,7 +405,7 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
                 );
               });
         } else {
-          _selectedDate2 = DateFormat('dd.MM.yyyy').format(picked2!);
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
         }
       });
   }
@@ -421,7 +434,7 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      LineChartSample2(
+                      LineCharScrapmonster(
                         dates: trBolgeler![_selectedRegionIndex]
                             .turkeyAllTabble
                             .map((e) => e.date)

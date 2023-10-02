@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
 import 'package:demircelik/model-control/db.dart';
+import 'package:demircelik/model-control/datacont.dart';
+import 'package:demircelik/model-control/fireModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
@@ -19,32 +21,6 @@ import 'dart:core';
 import 'package:html/dom.dart' as dom;
 import 'package:kartal/kartal.dart';
 
-class FireProduct {
-  final String id;
-  final String countryId;
-  final String date;
-  final String price;
-  final String unit;
-
-  FireProduct({
-    required this.id,
-    required this.countryId,
-    required this.date,
-    required this.price,
-    required this.unit,
-  });
-
-  factory FireProduct.fromDocument(DocumentSnapshot doc) {
-    return FireProduct(
-      id: doc['id'],
-      countryId: doc['countryId'],
-      date: doc['date'],
-      price: doc['price'],
-      unit: doc['unit'],
-    );
-  }
-}
-
 class FireView extends StatefulWidget {
   FireView(
       {super.key,
@@ -61,69 +37,25 @@ class FireView extends StatefulWidget {
   @override
   State<FireView> createState() => _FireViewState();
 }
- List<FireProduct> addProductsToList(List<DbProduct> dbProducts, List<FireProduct> fireProducts) {
-  List<FireProduct> newList = [...fireProducts]; // Mevcut listeyi kopyalayın
-
-  for (var dbProduct in dbProducts) {
-    FireProduct fireProduct = FireProduct(
-      id: dbProduct.id,
-      countryId: dbProduct.groupId,
-      date: dbProduct.date, // Tarihi formatlayın
-      price: dbProduct.price,
-      unit: dbProduct.unit,
-    );
-    newList.add(fireProduct);
-  }
-
-  return newList;
-}
+ 
 
 
-List<FireProduct> orderProductsByDate(List<FireProduct> productList) {
-  productList.sort((a, b) {
-    DateTime dateA = DateFormat('dd/MM/yyyy').parse(a.date);
-    DateTime dateB = DateFormat('dd/MM/yyyy').parse(b.date);
-    return dateA.compareTo(dateB);
-  });
 
-  return productList;
-}
 
 
 class _FireViewState extends State<FireView> {
-  Map<String, String?> parseValues(String input) {
-    final RegExp exp1 = RegExp(r'urunid:(\S+)');
-    final Match? match1 = exp1.firstMatch(input);
-    final RegExp exp2 = RegExp(r'datatur:(\S+)');
-    final Match? match2 = exp2.firstMatch(input);
-    var urun = "";
-    var tur = "";
-    if (match1 != null) {
-      urun = match1.group(1) ?? "1";
-    } else {
-      print("değer 1 ayrıştırılamadı");
-    }
-    if (match2 != null) {
-      tur = match2.group(1) ?? "";
-    } else {
-      print("değer 2 ayrıştırılamadı");
-    }
-    return {
-      'urunid': urun,
-      'datatur': tur,
-    };
-  }
+ 
 
   @override
   void initState() {
-    getDate();
+     date = Datacontroller.getDate();
 
     DateTime endDate = DateTime.now();
-    DateTime startDate = endDate.subtract(Duration(days: 50));
+    DateTime startDate = endDate.subtract(Duration(days: 90));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
     super.initState();
@@ -134,12 +66,7 @@ class _FireViewState extends State<FireView> {
   var urunid = "";
   var datatur = "";
   String date = "";
-  void getDate() {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
-    print(formattedDate);
-    date = formattedDate;
-  }
+   
 
   DateTime? picked;
   DateTime? picked2;
@@ -157,7 +84,7 @@ class _FireViewState extends State<FireView> {
     );
     if (picked != null)
       setState(() {
-        _selectedDate = DateFormat('dd.MM.yyyy').format(picked!);
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
       });
   }
 
@@ -189,72 +116,17 @@ class _FireViewState extends State<FireView> {
                 );
               });
         } else {
-          _selectedDate2 = DateFormat('dd.MM.yyyy').format(picked2!);
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
         }
       });
   }
 
 
-  Future<List<DbProduct>> querydb(DateTime start,DateTime end,String urunid,String grupid) async{
-   final startDate = DateTime(start.year, start.month,  start.day);
-    final endDate = DateTime(end.year, end.month,  end.day); 
-         var dbdat = await DatabaseHelper().getDataByDateAndIds(
-      startDate,
-      endDate, 
-      urunid, 
-      grupid,
-    );
-  /*   print("querydb sonuc");
-    print(dbdat.toList());
-   dbdat.forEach((element) {
-      print(element.date);
-    }); */
-    return dbdat;
-  } 
   int _selectedRegionIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection(widget.product).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData)
-            return Center(
-              child: SizedBox(
-                height: 122,
-                child: Lottie.asset('assets/images/loading.json'),
-              ),
-            );
-          if (snapshot.hasError) {
-            return Text('Hata: ${snapshot.error}');
-          }
-           print("ilk gelen dosyalar");
-          print(snapshot.data!.docs);
-          print("gelen tarih 1 ve 2 : $_selectedDate ve $_selectedDate2");
-          DateTime startDate = parseDatenokta(_selectedDate);
-          DateTime endDate = parseDatenokta(_selectedDate2);
-          print("çeviri tamam");
-          print(startDate.day);
-          List<FireProduct> products = snapshot.data!.docs
-              .map((doc) => FireProduct.fromDocument(doc))
-              .where((product) {
-
-            DateTime productDate = parseDate(product.date);
-         //   DateTime   productDate = DateTime.parse(product.date);
-//String output = DateFormat('dd.MM.yyyy').format(productDate);
-            print("product date gelen bu tarih ");
-            print(productDate);
-            print("bu ilk tarih");
-            print(startDate);
-            print("bu son tarih");
-            print(endDate);
-            return productDate.isAfter(startDate) &&
-                productDate.isBefore(endDate);
-          }).toList();
-          var secilenqrsorgu = "1";
-          widget.id== "1" ? secilenqrsorgu = "2" : widget.id==3 ? secilenqrsorgu = "4" : secilenqrsorgu = "1"; 
-  return FutureBuilder<List<DbProduct>>(
-      future: querydb(picked!, picked2!, secilenqrsorgu, "1"),
+    return   FutureBuilder<List<FireProduct>>(
+      future: firemodeltum.butunfirebasedata(widget.product,_selectedDate,_selectedDate2),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -264,39 +136,8 @@ class _FireViewState extends State<FireView> {
           // Veri yok durumu
           return Center(child: Text('Veri tabanı hatası.'));
         } else {
-          List<DbProduct> qrdata = snapshot.data!;
-             print("işte gelen data");
-          print(qrdata.toString());
-            if (qrdata.isEmpty && products.isEmpty) {
-              print("ikiside boş");
-              return Text("veri yok");
-        /*       var a =  FireProduct(id: "1", countryId: "1", date: "$_selectedDate2", price: "1", unit: "USD");
-          products =[a,a]; */
-
-                   }
-
-             if (qrdata.isEmpty && products.isNotEmpty) {
-                print("qr boş ama fire dolu");
-          products = products;
- products = orderProductsByDate(products);
-             } 
-   if (qrdata.isNotEmpty && products.isEmpty) {
-                         print("qr dolu ama fire boş");
-          products = addProductsToList(qrdata ,[]);
- products = orderProductsByDate(products);
-             } 
-             if (qrdata.isNotEmpty && products.isNotEmpty) {
-              
-
-          products = addProductsToList(qrdata, products);
- products = orderProductsByDate(products);
-             }
-
-           print("son pro");
-          print(products.toString());
-                    print(products);
-
-
+          List<FireProduct> products = snapshot.data!;
+         
 
           return Scaffold(
               appBar: AppBar(
@@ -307,7 +148,7 @@ class _FireViewState extends State<FireView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                    products != null || products != [] || products.toString() != "[]"    ?  LineChartSample2(
+                    products != null || products != [] || products.toString() != "[]"    ?  LineCharScrapmonster(
                         dates: products.map((e) => e.date).toList(),
                         prices: products.map((e) => e.price).toList(),
                         title: widget.title,
@@ -357,27 +198,6 @@ class _FireViewState extends State<FireView> {
               ));
         
          
-  }});});}
+  }});}}
 
-  DateTime parseDate(String dateStr) {
-    print("parse data başladı");
-    var parts = dateStr.split("/");
-    int day = int.parse(parts[0]);
-    int month = int.parse(parts[1]);
-    int year = int.parse(parts[2]);
-    print("parse data bitti");
-
-    return DateTime(year, month, day);
-  }
-
-  DateTime parseDatenokta(String dateStr) {
-    print("parse data başladı");
-    var parts = dateStr.split(".");
-    int day = int.parse(parts[0]);
-    int month = int.parse(parts[1]);
-    int year = int.parse(parts[2]);
-    print("parse data bitti");
-
-    return DateTime(year, month, day);
-  }
-}
+ 

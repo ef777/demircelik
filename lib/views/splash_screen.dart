@@ -41,31 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
- Future<double> gettr_usd() async {
-    final response = await http
-        .get(Uri.parse('https://api.exchangerate-api.com/v4/latest/TRY'));
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final rates = data['rates'];
-      final usdRate = rates['USD'];
-      return  await usdRate;
-    }
-
-    return 0;
-  }Future<double> getcny_usd() async {
-    final response = await http
-        .get(Uri.parse('https://api.exchangerate-api.com/v4/latest/CNY'));
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final rates = data['rates'];
-      final usdRate = rates['USD'];
-      return  await usdRate;
-    }
-
-    return 0;
-  }
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Map<String, dynamic>? data; // Çekilen kullanıcı verisi burada saklanacak
     Future<void> fetchkontrol() async {
@@ -123,8 +98,8 @@ await fetchkontrol();
         _user = _auth.currentUser;
 
     aciliskont();
- gettr_usd().then((value) =>  kur.usdValue = value  );
- getcny_usd().then((value) =>  kur.cnyValue = value  ) ;
+ kur.gettr_usd().then((value) =>  kur.usdValue = value  );
+ kur.getcny_usd().then((value) =>  kur.cnyValue = value  ) ;
     super.initState();
   }
 

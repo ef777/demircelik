@@ -3,11 +3,16 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
+import 'package:demircelik/model-control/china_tum_model.dart';
+import 'package:demircelik/model-control/fireModel.dart';
+import 'package:demircelik/model-control/us_ch_hurda_model.dart';
 import 'package:demircelik/views/defiyat-tr/tr-data.dart';
 import 'package:demircelik/views/firestore-tr/fireview.dart';
 import 'package:demircelik/views/sunsirs-ch/ch-data.dart';
 import 'package:demircelik/views/eu-usa-scrap(sac)/sac-usa-eu-data.dart';
-
+import 'package:demircelik/model-control/db.dart';
+import 'package:demircelik/model-control/datacont.dart';
+import 'package:demircelik/model-control/fireModel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +41,52 @@ class KarsilastirDetay extends StatefulWidget {
 
 
 class _KarsilastirDetayState extends State<KarsilastirDetay> {
- 
+   Future<void> _selectDate(BuildContext context) async {
+    picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000, 1),
+      lastDate: DateTime(2025, 12),
+    );
+    if (picked != null)
+      setState(() {
+        _selectedDate = DateFormat('dd-MM-yyyy').format(picked!);
+      });
+  }
+
+  Future<void> _selectDate2(BuildContext context) async {
+    picked2 = await showDatePicker(
+      context: context,
+      initialDate: picked2 ?? DateTime.now(),
+      firstDate: DateTime(2000, 1),
+      lastDate: DateTime(2025, 12),
+    );
+
+    if (picked2 != null)
+      setState(() {
+        if (picked2!.isBefore(picked!)) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Uyarı'),
+                  content: Text('Son tarih başlangıç tarihinden önce olamaz.'),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text('Tamam'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              });
+        } else {
+          _selectedDate2 = DateFormat('dd-MM-yyyy').format(picked2!);
+        }
+      });
+  }
+
 fetchData2() async {
 return 0;
 }
@@ -50,7 +100,7 @@ return 0;
  
   void getDate() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd.MM.yyyy').format(now);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
     print(formattedDate);
     date = formattedDate;
   }
@@ -83,40 +133,20 @@ Future<List<FireProduct>> FireFetch(
   List<FireProduct> products = snapshot.docs
       .map((doc) => FireProduct.fromDocument(doc))
       .where((product) {
-    DateTime productDate = parseDate(product.date);
+    DateTime productDate = Datacontroller.parseDate(product.date);
     return productDate.isAfter(startDate) && productDate.isBefore(endDate);
   }).toList();
 
   return products;
 }
- DateTime parseDate(String dateStr) {
-    print("parse data başladı");
-    print(dateStr);
-    var parts = dateStr.split("/");
-    int day = int.parse(parts[0]);
-    int month = int.parse(parts[1]);
-    int year = int.parse(parts[2]);
-    print("parse data bitti");
 
-    return DateTime(year, month, day);
-  }
-  DateTime parseDateNoktali(String dateStr) {
-    print("parsenoktali data başladı");
-    print(dateStr);
-    var parts = dateStr.split(".");
-    int day = int.parse(parts[0]);
-    int month = int.parse(parts[1]);
-    int year = int.parse(parts[2]);
-    print("parse data bitti");
 
-    return DateTime(year, month, day);
-  }
 fetchData(id , zaman1,zaman2)async {
   if(id == "6"){
 //inşaat demiri
-print("inşaat demiri");
+print("hurda");
 // turkey veri
-print("turkey veri demir başladı");
+print("turkey veri hurda başladı");
  var demir_tr_data ;
  demir_tr_data = await TurkeyAllPage.TurkeyFetchData(
                                       "3",
@@ -126,8 +156,14 @@ print("turkey veri demir başladı");
                                     );
 print("demir_tr_data");
 print(demir_tr_data);
+List<DataItem> DataItemss  =await Us_Ch_Hurdamodel.fetch_us_hurda_db_ve_api(true,_selectedDate,_selectedDate2);
+//*98 usa hurda ekle *ok
+//*98 çin hurda ekle noral fetch *ok
 
-return [demir_tr_data]; 
+var ChnDemirDatam;
+   ChnDemirDatam = await Us_Ch_Hurdamodel.fetch_us_hurda_db_ve_api(false,_selectedDate,_selectedDate2);
+return [demir_tr_data,ChnDemirDatam,DataItemss]; 
+
 }
 
 if(id == "1"){
@@ -147,12 +183,9 @@ print(demir_tr_data);
 print("turkey veri demir bitti");
  print("çin veri demir başladı");
 // çin veri
-List<ChinaDataitem> ChnDemirData = [];
-   ChnDemirData = await   ChinaData.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-927.html"));
-      print("çin veri");
-      print(ChnDemirData);
-      print("çin veri demir bitti");
-
+List<DataItem> ChnDemirData = [];
+   ChnDemirData = await ch_tum_model.ch_api_db(Uri.parse("http://www.sunsirs.com/tr/prodetail-927.html"), _selectedDate, _selectedDate2 );
+//ok98 ok dbden çekildi inşaat
 return [demir_tr_data , ChnDemirData]; 
 }
 
@@ -170,10 +203,14 @@ print("turkey veri demir cevheri başladı");
 print("demir_tr_data");
 print(demir_tr_data);
 print("turkey veri demir bitti");
- print("çin veri demir başladı");
+ print("çin veri demir  cechei başladı");
+ if(demir_tr_data.length==0 || demir_tr_data == null){
+   print("turkey veri demir cevheri boş");
+
+ }
 // çin veri
-List<ChinaDataitem> ChnDemirData = [];
-   ChnDemirData = await   ChinaData.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-961.html"));
+List<DataItem> ChnDemirData = [];
+   ChnDemirData = await   ch_tum_model.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-961.html"));
       print("çin veri");
       print(ChnDemirData);
       print("çin veri demir bitti");
@@ -184,14 +221,14 @@ return [demir_tr_data , ChnDemirData];
 if (widget.id == "4"){
 print("galvaniz sac");
 print("turkey veri galvaniz sac başladı from firebase");
-  List<FireProduct> fireproduct  = await FireFetch("Galvaniz Sac", zaman1!, zaman2!);
+  List<FireProduct> fireproduct  = await firemodeltum.butunfirebasedata("Galvaniz Sac", _selectedDate!, _selectedDate2!);
  /*  dates: products.map((e) => e.date).toList(),
                         prices: products.map((e) => e.price).toList(), */
 print(fireproduct.toString());
 print("turkey veri galvaniz sac bitti from firebase");
 
-List<ChinaDataitem> ChnDemirData = [];
-   ChnDemirData = await   ChinaData.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-301.html"));
+List<DataItem> ChnDemirData = [];
+   ChnDemirData = await   ch_tum_model.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-301.html"));
       print("çin veri");
       print(ChnDemirData);
       print("çin veri demir bitti");
@@ -202,46 +239,48 @@ List<ChinaDataitem> ChnDemirData = [];
 if (widget.id == "2"){
 print("Sıcak haddelenmiş sac");
 print("turkey veri Sıcak haddelenmiş sac başladı from firebase");
-  List<FireProduct> fireproduct  = await FireFetch("Sıcak Haddelenmiş Sac", zaman1!, zaman2!);
+  List<FireProduct> fireproduct  = await  firemodeltum.butunfirebasedata("Sıcak Haddelenmiş Sac", _selectedDate!, _selectedDate2!);
  /*  dates: products.map((e) => e.date).toList(),
                         prices: products.map((e) => e.price).toList(), */
 print(fireproduct.toString());
 print("turkey veri Sıcak haddelenmiş sac bitti from firebase");
 
-List<ChinaDataitem> ChnDemirData = [];
-   ChnDemirData = await   ChinaData.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-195.html"));
+List<DataItem> ChnDemirData = [];
+   ChnDemirData = await   ch_tum_model.ch_api_db( Uri.parse("http://www.sunsirs.com/tr/prodetail-195.html"), _selectedDate, _selectedDate2);
       print("çin veri");
       print(ChnDemirData);
       print("çin veri Sıcak haddelenmiş sac bitti");
 
-   List<UsaItem> Usaitems  = await hacUsaEu.UsaFetch("69", "593","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
-                        return [fireproduct , ChnDemirData,Usaitems]; 
-
+   List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "593","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
+                        return [fireproduct , ChnDemirData,DataItemss]; 
+//98* çin de eklenecek dbden çi ok*
 }
 if (widget.id == "3"){
+
+  //98* burda çin dbden eklenecek *ok
 print("sOĞUK haddelenmiş sac");
-print("turkey veri Sıcak haddelenmiş sac başladı from firebase");
-  List<FireProduct> fireproduct  = await FireFetch("Soğuk Haddelenmiş Sac", zaman1!, zaman2!);
+print("turkey veri Soğuk haddelenmiş sac başladı from firebase");
+  List<FireProduct> fireproduct  = await  firemodeltum.butunfirebasedata("Soğuk Haddelenmiş Sac", _selectedDate!, _selectedDate2!);
  /*  dates: products.map((e) => e.date).toList(),
                         prices: products.map((e) => e.price).toList(), */
 print(fireproduct.toString());
 print("turkey veri Sıcak haddelenmiş sac bitti from firebase");
 
-List<ChinaDataitem> ChnDemirData = [];
-   ChnDemirData = await   ChinaData.ChinaFetchData( Uri.parse("http://www.sunsirs.com/tr/prodetail-318.html"));
+List<DataItem> ChnDemirData = [];
+   ChnDemirData = await   ch_tum_model.ch_api_db( Uri.parse("http://www.sunsirs.com/tr/prodetail-318.html") , _selectedDate, _selectedDate2);
       print("çin veri");
       print(ChnDemirData);
       print("çin veri Sıcak haddelenmiş sac bitti");
 
-   List<UsaItem> Usaitems  = await hacUsaEu.UsaFetch("69", "594", "_selectedDate", "_selectedDate2");
-                        List<UsaItem> EUitems  = await hacUsaEu.UsaFetch("71", "594", "_selectedDate", "_selectedDate2");
+   List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "594", "_selectedDate", "_selectedDate2");
+                        List<DataItem> EUitems  = await hacUsaEu.UsaFetch("71", "594", "_selectedDate", "_selectedDate2");
                     
                        
-                        return [fireproduct , ChnDemirData,Usaitems,EUitems]; 
+                        return [fireproduct , ChnDemirData,DataItemss,EUitems]; 
 
 }
 }
- List<UsaItem> Usaitems = [];
+ List<DataItem> DataItemss = [];
  String usaformatdate(String date) {
   List<String> dateParts = date.split('.');
   if (dateParts.length != 3) {
@@ -252,18 +291,18 @@ List<ChinaDataitem> ChnDemirData = [];
   String month = dateParts[1].padLeft(2, '0');
   String year = dateParts[2];
 
-  return "$year-$month-$day";
+  return "$day-$month-$year";
 }
 
  @override
   void initState() {
    getDate();
     DateTime endDate = DateTime.now();
-    DateTime startDate = endDate.subtract(Duration(days: 30));
+    DateTime startDate = endDate.subtract(Duration(days: 90));
     picked = startDate;
     picked2 = endDate;
-    ilkbas = DateFormat('dd.MM.yyyy').format(startDate);
-    sonbas = DateFormat('dd.MM.yyyy').format(endDate);
+    ilkbas = DateFormat('dd-MM-yyyy').format(startDate);
+    sonbas = DateFormat('dd-MM-yyyy').format(endDate);
     _selectedDate = ilkbas;
     _selectedDate2 = sonbas;
  
@@ -272,19 +311,19 @@ List<ChinaDataitem> ChnDemirData = [];
     WidgetsBinding.instance.addPostFrameCallback((_) async {});
   }
    List<TrBolgeler>? trdemirdata = [];
-     List<ChinaDataitem> ChnDemirData = [];
+     List<DataItem> ChnDemirData = [];
 var ch_dates ;
-List<UsaItem> EUitems  = [];
+List<DataItem> EUitems  = [];
  List<FireProduct> fireproduct  = [];
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
       future: 
-      widget.id == "1" ?  fetchData(widget.id , tarih1,tarih2) :
-      widget.id == "2" ?  fetchData(widget.id,parseDateNoktali(_selectedDate) ,parseDateNoktali(_selectedDate2)) :
-      widget.id == "5" ?  fetchData(widget.id , tarih1,tarih2) :
-      widget.id == "4" ?  fetchData( widget.id  ,parseDateNoktali(_selectedDate) ,parseDateNoktali(_selectedDate2)) :
-      widget.id == "3" ?  fetchData(widget.id  , parseDateNoktali(_selectedDate) ,parseDateNoktali(_selectedDate2)) :
+      widget.id == "1" ?  fetchData(widget.id , Datacontroller.parseDate(_selectedDate) ,Datacontroller.parseDate(_selectedDate2)) :
+      widget.id == "2" ?  fetchData(widget.id,Datacontroller.parseDate(_selectedDate) ,Datacontroller.parseDate(_selectedDate2)) :
+      widget.id == "5" ?  fetchData(widget.id ,Datacontroller.parseDate(_selectedDate) ,Datacontroller.parseDate(_selectedDate2)) :
+      widget.id == "4" ?  fetchData( widget.id  ,Datacontroller.parseDate(_selectedDate) ,Datacontroller.parseDate(_selectedDate2)) :
+      widget.id == "3" ?  fetchData(widget.id  , Datacontroller.parseDate(_selectedDate) ,Datacontroller.parseDate(_selectedDate2)) :
       fetchData(widget.id , tarih1,tarih2),
     
 
@@ -301,49 +340,91 @@ List<UsaItem> EUitems  = [];
        if(widget.id == "1" ){
             trdemirdata = data[0];
 ChnDemirData = data[1];
-                   ch_dates = UsAndChinaScrapmonsState.getAllDates(ChnDemirData);
+print("id 1 tr  date ornek " + trdemirdata![0]
+                            .turkeyAllTabble
+                            [0].date.toString() );
+print("id 1 ch date ornek  " + ChnDemirData[0].date.toString() );
+
+                   ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
 
 print("çin tarihleri ");
 print(ch_dates.toString());
           } 
              if(widget.id == "6" ){
+              
             trdemirdata = data[0];
+ChnDemirData = data[1] ;
+DataItemss = data[2];
+                   ch_dates = ChinaView.getAllDates(ChnDemirData);
+  ch_dates = ch_dates.reversed.toList();
+
+print("id 6 tr  date ornek " + trdemirdata![0]
+                            .turkeyAllTabble
+                            [0].date.toString() );
+print("id 6 ch date ornek  " + ChnDemirData[0].date.toString() );
+
+
 
           } 
           if(widget.id == "5" ){
+            
+
             trdemirdata = data[0];
 ChnDemirData = data[1];
-                   ch_dates = UsAndChinaScrapmonsState.getAllDates(ChnDemirData);
+                   ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
+ 
+print("id 5 tr  date ornek " + trdemirdata![0]
+                            .turkeyAllTabble
+                            [0].date.toString() );
+print("id 5 ch date ornek  " + ChnDemirData[0].date.toString() );
 
-print("çin tarihleri ");
-print(ch_dates.toString());
           } 
 
           if( widget.id == "4" ){
+            
+
              fireproduct  = data[0];
              ChnDemirData = data[1];
              
-              ch_dates = UsAndChinaScrapmonsState.getAllDates(ChnDemirData);
+              ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
+  print("id 4 tr  date ornek " + fireproduct[0].date.toString() );
+print("id 4 ch date ornek  " + ChnDemirData[0].date.toString() );
+
 
           }
            if( widget.id == "2" ){
+            
+
+            print("id2 build");
              fireproduct  = data[0];
+             print("gelen tr data ${fireproduct[0].price}");
              ChnDemirData = data[1];
-              ch_dates = UsAndChinaScrapmonsState.getAllDates(ChnDemirData);
+              print("gelen ch data ${ChnDemirData[0].price} ");
+              ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
-  Usaitems = data[2];
+  DataItemss = data[2];
+  print("id 2 usa date ornek  " + DataItemss[0].date.toString() );
+  print("id 2 tr  date ornek " + fireproduct[0].date.toString() );
+
+print("id 2 ch date ornek  " + ChnDemirData[0].date.toString() );
+
 
           }
            if( widget.id == "3" ){
              fireproduct  = data[0];
              ChnDemirData = data[1];
-              ch_dates = UsAndChinaScrapmonsState.getAllDates(ChnDemirData);
+              ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
-  Usaitems = data[2];
+  DataItemss = data[2];
    EUitems  = data[3];
+  print("id 3 tr  date ornek " + fireproduct[0].date.toString() );
+print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
+  print("id 3 usa date ornek  " + DataItemss[0].date.toString() );
+  print("id 3 eu date ornek  " + EUitems[0].date.toString() );
+// hepsini nu fortama döndür 2023-10-01
 
           }
           return Scaffold(
@@ -371,25 +452,24 @@ print(ch_dates.toString());
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
             prices3:[],
             prices4: [],
-            dates1:  ch_dates,
-            dates2:  trdemirdata![0]
+            dates1:   trdemirdata![0]
                             .turkeyAllTabble
                             .map((e) => e.date)
-                            .toList(), // Sample dates for prices 2
+                            .toList(), 
+            dates2:  ch_dates, // Sample dates for prices 2
             dates3: [],
             dates4: [],
                             
                     ) : 
                    //id 2 sıcak hac tr firebase + çin + usa
                     widget.id == "2" ?  MultiLineChart(
-
-            prices1: fireproduct.map((e) => e.price).toList(), // 
+            prices1: fireproduct.map((e) => e.price).toList() , // 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
-            prices3: Usaitems.map((e) => e.price.toString()).toList(),
+            prices3: DataItemss.map((e) => e.price.toString()).toList(),
             prices4: [],
-            dates1:  ch_dates,
-            dates2:   [],// Sample dates for prices 2
-            dates3:  [], /* Usaitems.map((e) => e.date).toList(), */
+            dates1:   fireproduct.map((e) => e.date).toList() ,
+            dates2:   ch_dates,// Sample dates for prices 2
+            dates3: DataItemss.map((e) => e.date.toString()).toList(), /* DataItemss.map((e) => e.date).toList(), */
             dates4: [],
                             
                     ) 
@@ -399,12 +479,12 @@ print(ch_dates.toString());
 
             prices1: fireproduct.map((e) => e.price).toList(), // 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
-            prices3: Usaitems.map((e) => e.price.toString()).toList(),
+            prices3: DataItemss.map((e) => e.price.toString()).toList(),
             prices4: EUitems.map((e) => e.price.toString()).toList(),
-            dates1:  ch_dates,
-            dates2:  [] ,// Sample dates for prices 2
-            dates3: [] ,/* Usaitems.map((e) => e.date).toList(), */
-            dates4: [],
+            dates1:  fireproduct.map((e) => e.date).toList() ,
+            dates2:   ch_dates,// Sample dates for prices 2
+             dates3: DataItemss.map((e) => e.date.toString()).toList(), /* DataItemss.map((e) => e.date).toList(), */
+            dates4:EUitems.map((e) => e.date.toString()).toList(),
                             // id 4 galvanizli sac tr firebase + site çin
 
                     ) : widget.id=="4" ?  MultiLineChart(
@@ -414,9 +494,9 @@ print(ch_dates.toString());
             prices1:fireproduct.map((e) => e.price).toList(), /// 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
             prices3:[],
-            prices4: [],
-            dates1:  ch_dates,
-            dates2:[], /*  trdemirdata![0]
+            prices4: [], 
+            dates1: fireproduct.map((e) => e.date).toList() ,
+            dates2:   ch_dates,/*  trdemirdata![0]
                             .turkeyAllTabble
                             .map((e) => e.date)
                             .toList(), 
@@ -431,12 +511,18 @@ print(ch_dates.toString());
 
 
 
-            prices1: trdemirdata![0].listefiyatlar, // 
+            prices1: trdemirdata.isNotNullOrEmpty ? 
+            
+            
+             trdemirdata![0].listefiyatlar : [], // 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
             prices3:[],
             prices4: [],
-            dates1:  ch_dates,
-            dates2: [] /*  trdemirdata![0]
+            dates1: trdemirdata![0]
+                            .turkeyAllTabble
+                            .map((e) => e.date)
+                            .toList(), 
+            dates2: ch_dates/*  trdemirdata![0]
                             .turkeyAllTabble
                             .map((e) => e.date)
                             .toList() */, // Sample dates for prices 2
@@ -446,20 +532,44 @@ print(ch_dates.toString());
 
 
 
-
             prices1: trdemirdata![0].listefiyatlar, // 
-            prices2:  trdemirdata![0].listefiyatlar,  // Sample prices 2
-            prices3:[],
+            prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
+                    prices3: DataItemss.map((e) => e.price.toString()).toList(),
+
             prices4: [],
-            dates1:  ["2023.07. 1" ,"2023.07. 2" ,"2023.07. 3" ,"2023.07. 4" ,"2023.07. 5" ,"2023.07. 6" ,"2023.07. 7" ],
-            dates2: [] /*  trdemirdata![0]
+            dates1:  trdemirdata![0]
+                            .turkeyAllTabble
+                            .map((e) => e.date)
+                            .toList(), 
+            dates2: ch_dates /*  trdemirdata![0]
                             .turkeyAllTabble
                             .map((e) => e.date)
                             .toList() */, // Sample dates for prices 2
-            dates3: [],
+            dates3: DataItemss.map((e) => e.date.toString()).toList(),
             dates4: [],
                     ) ),
-                  
+                   Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: () => _selectDate(context),
+                                child: Column(children: [
+                                  Text('Başlangıç  '),
+                                  Text(_selectedDate),
+                                ])),
+                            TextButton(
+                                onPressed: () => _selectDate2(context),
+                                child: Column(children: [
+                                  Text('Bitiş  '),
+                                  Text(_selectedDate2),
+                                ])),
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {});
+                                },
+                                child: Icon(Icons.refresh_outlined))
+                          ]),
                    widget.id== "1" ?
                    Container(child: 
                 Center(child:   Row(

@@ -34,7 +34,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: '',
                 )),
                 image:
-                    "https://media.istockphoto.com/id/915059294/tr/vekt%C3%B6r/demir-fe-kimyasal-element-simgesi.jpg?s=170667a&w=0&k=20&c=PUZPzwx7iCnHuICciFxdGLbsVTUHq6jQ2mCzEZItGSs=",
+                    "insaatdemiri.png",
                 title: "Demir Fiyatı",
               ),
               AreaContainer(
@@ -44,7 +44,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: "Kütük",
                 )),
                 image:
-                    "https://www.atolye10.com/wp-content/uploads/2018/04/ahsap-dilim-kutuk.jpg",
+                    "kutuk.png",
                 title: "Kütük Fiyatı",
               ),
               AreaContainer(
@@ -54,7 +54,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: "Çelik Hasır",
                 )),
                 image:
-                    "https://kalkangeridonusum.com/wp-content/uploads/2021/04/hurda-demir.jpg",
+                    "celikhasir.png",
                 title: "Çelik Hasır Fiyatı",
               ),
               AreaContainer(
@@ -64,7 +64,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: "Yerli Hurda",
                 )),
                 image:
-                    "https://kalkangeridonusum.com/wp-content/uploads/2021/04/hurda-demir.jpg",
+                    "yerlihurda.png",
                 title: "Yerli Hurda",
               ),
               AreaContainer(
@@ -74,7 +74,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: "İthal Hurda",
                 )),
                 image:
-                    "https://kalkangeridonusum.com/wp-content/uploads/2021/04/hurda-demir.jpg",
+                    "ithalhurda.png",
                 title: "İthal Hurda",
               ),
               AreaContainer(
@@ -84,7 +84,7 @@ class TurkeyProductView extends StatelessWidget {
                   href: "Demir Cevheri",
                 )),
                 image:
-                    "https://geoim.bloomberght.com/2021/12/07/ver1638865879/2293767_1200x627.jpg",
+                    "demircevher.png",
                 title: "Demir Cevheri Fiyatı",
               ),
               AreaContainer(
@@ -96,7 +96,7 @@ class TurkeyProductView extends StatelessWidget {
                   id: '1',
                 )),
                 image:
-                    "https://media.istockphoto.com/id/915059294/tr/vekt%C3%B6r/demir-fe-kimyasal-element-simgesi.jpg?s=170667a&w=0&k=20&c=PUZPzwx7iCnHuICciFxdGLbsVTUHq6jQ2mCzEZItGSs=",
+                    "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac",
               ),
               AreaContainer(
@@ -108,7 +108,7 @@ class TurkeyProductView extends StatelessWidget {
                   id: '2',
                 )),
                 image:
-                    "https://media.istockphoto.com/id/915059294/tr/vekt%C3%B6r/demir-fe-kimyasal-element-simgesi.jpg?s=170667a&w=0&k=20&c=PUZPzwx7iCnHuICciFxdGLbsVTUHq6jQ2mCzEZItGSs=",
+                    "soguksac.png",
                 title: "Soğuk Haddelenmiş Sac",
               ),
               AreaContainer(
@@ -120,7 +120,7 @@ class TurkeyProductView extends StatelessWidget {
                   product: 'Galvaniz Sac',
                 )),
                 image:
-                    "https://media.istockphoto.com/id/915059294/tr/vekt%C3%B6r/demir-fe-kimyasal-element-simgesi.jpg?s=170667a&w=0&k=20&c=PUZPzwx7iCnHuICciFxdGLbsVTUHq6jQ2mCzEZItGSs=",
+                    "galvanizsac.png",
                 title: "Galvaniz Sac",
               ),
               AreaContainer(
@@ -129,7 +129,7 @@ class TurkeyProductView extends StatelessWidget {
                   title: "Nervurlu Kangal",
                   href: "Nervürlü Kangal",
                 )),
-                image: "https://ayescelik.com/images/kangal_demir_7.jpg",
+                image: "nervurlukangal.png",
                 title: "Nervurlu Kangal Fiyatı",
               ),
               AreaContainer(
@@ -138,7 +138,7 @@ class TurkeyProductView extends StatelessWidget {
                   title: "Düz Kangal",
                   href: "Düz Kangal",
                 )),
-                image: "https://ayescelik.com/images/kangal_demir_7.jpg",
+                image: "duzkangal.png",
                 title: "Düz Kangal Fiyatı",
               ),
             ],

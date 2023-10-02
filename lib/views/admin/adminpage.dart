@@ -149,7 +149,7 @@ class _AdminPageState extends State<AdminPage> {
   String _selectedCountryId = '1';
   String _selectedProductId = '1';
   DateTime selectedDate = DateTime.now();
-  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {

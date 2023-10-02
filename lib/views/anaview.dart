@@ -111,66 +111,33 @@ class _AreaAndCouViewState extends State<AreaAndCouView> {
             AreaContainer(
               onTap: () => context.navigateToPage(const TurkeyProductView()),
               image:
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2000px-Flag_of_Turkey.svg.png",
+                  "turkey.png",
               title: "Türkiye Cumhuriyeti",
             ),
             AreaContainer(
               onTap: () => context.navigateToPage(const AvrupaProductView()),
-              image: "https://www.ab.gov.tr/files/_images/images/euablem.gif",
+              image: "europa.png",
               title: "Avrupa Birliği",
             ),
             AreaContainer(
               onTap: () => context.navigateToPage(const AmerikaProductView()),
               image:
-                  "https://media.istockphoto.com/id/523382953/tr/foto%C4%9Fraf/usa-flag.jpg?s=612x612&w=is&k=20&c=fWLtHZrip0FkVmzZw003YgUnpvlPV_ZjthPT9_q8K8s=",
+                  "usa.png",
               title: "Amerika Birleşik Devleti",
             ),
             AreaContainer(
               onTap: () => context.navigateToPage(const CinProductView()),
               image:
-                  "https://ulkelerbayraklar.com/wp-content/uploads/2017/12/%C3%A7in-halk-cumhuriyeti-bayra%C4%9F%C4%B1.png",
+                  "cin.png",
               title: "Çin Halk Cumhuriyei",
             ),
-            Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: InkWell(
-        onTap: () => context.navigateToPage( KarsilastirmaMenu()),
-        child: Container(
-          height: 68,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: const Offset(0, 3),
-                  color: Colors.grey.withOpacity(.07))
-            ],
-            borderRadius: context.lowBorderRadius,
-            //   color: Colors.white,
-            color: const Color.fromRGBO(24, 31, 44, 1),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-              
-              
-               Center(child: Text(
-                  "Karşılaştır",
-                  style: context.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                )),
-              ],
+              AreaContainer(
+              onTap: () => context.navigateToPage(const KarsilastirmaMenu()),
+              image:
+                  "un.png",
+              title: "Ülke Verilerini Karşılaştır",
             ),
-          ),
-        ),
-      ),
-    )
+         
  
           
           ],
@@ -218,8 +185,8 @@ class AreaContainer extends StatelessWidget {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      image,
+                    child: Image.asset(
+                      "assets/$image",
                       height: 60,
                       fit: BoxFit.cover,
                       width: 60,
@@ -242,57 +209,3 @@ class AreaContainer extends StatelessWidget {
     );
   }
 }
-
-// class AreaWidget extends StatelessWidget {
-//   const AreaWidget({
-//     super.key,
-//     required this.title,
-//     this.onTap,
-//   });
-//   final String title;
-//   final Function()? onTap;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 88,
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//         boxShadow: [
-//           BoxShadow(
-//               spreadRadius: 1,
-//               blurRadius: 1,
-//               offset: const Offset(0, 1),
-//               color: Colors.grey.withOpacity(.01))
-//         ],
-//         borderRadius: context.lowBorderRadius,
-//         //   color: Colors.white,
-//         color: const Color.fromRGBO(24, 31, 44, 1),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Text(
-//               title,
-//               style: context.textTheme.titleLarge
-//                   ?.copyWith(color: Colors.white, fontSize: 28),
-//             ),
-//             InkWell(
-//               onTap: onTap,
-//               child: Container(
-//                 height: 52,
-//                 width: 52,
-//                 decoration: const BoxDecoration(
-//                   shape: BoxShape.circle,
-//                   color: Colors.white,
-//                 ),
-//                 child: Icon(Icons.arrow_forward_ios_rounded),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
