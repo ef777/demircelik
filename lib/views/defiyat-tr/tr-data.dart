@@ -134,7 +134,7 @@ print("ilk gelen fiyat" + price);
 
       priceNumber = double.parse(numericPart.replaceAll(",", ""));
    var cikar = priceNumber * 0.18;
-     priceNumber = priceNumber - cikar;
+     priceNumber = priceNumber ; // - cikar;
 
       print("çevrilen double"+priceNumber.toString()); // prints: 19500.0 or 570.0
     } else {
@@ -156,7 +156,7 @@ print("ilk gelen fiyat" + price);
       //yüzde 18 al
      
      var cikar = priceNumber * 0.18;
-     priceNumber = priceNumber - cikar;
+     priceNumber = priceNumber ; // - cikar;
       print("priceNumber bu" + priceNumber.toString());
       unit = "USD";
       price = priceNumber.toString() + " " + unit + " KDV";
@@ -173,15 +173,24 @@ print("ilk gelen fiyat" + price);
 }}
 
 class TrBolgeler {
+  
   final String name;
   final String table;
   final List<TurkeyAllTabble> turkeyAllTabble;
-  final List<String> listefiyatlar;
+   List<String> listefiyatlar;
   TrBolgeler(
       {required this.table,
       required this.turkeyAllTabble,
       required this.name,
       required this.listefiyatlar});
+  TrBolgeler copyWith({List<String>? listefiyatlar}) {
+    return TrBolgeler(
+      table: this.table,
+      turkeyAllTabble: this.turkeyAllTabble,
+      name: this.name,
+      listefiyatlar: listefiyatlar ?? this.listefiyatlar,
+    );
+  }
 
   factory TrBolgeler.fromHtml(dom.Element bolgeElement, {required String name}) {
     var trs = bolgeElement.getElementsByTagName("tr");
@@ -501,17 +510,21 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
                         itemCount:
                             trBolgeler![_selectedRegionIndex].turkeyAllTabble.length,
                         itemBuilder: (context, index) {
+                       var sonucexp=    RegExp(r'\d+(?:\.\d+)?').allMatches(trBolgeler![_selectedRegionIndex]
+                                        .turkeyAllTabble[index]
+                                        .price);
+                                       String pricem= sonucexp.first.group(0)!;
+                                       pricem = double.parse(pricem).round().toString() + " USD";
                           return Container(
                               margin: EdgeInsets.all(
                                   5), // her öğenin etrafında 5 piksel boşluk
-                              child: Comp12(
+                              child:  
+ Comp12(
                                 date: trBolgeler![_selectedRegionIndex]
                                         .turkeyAllTabble[index]
                                         .date ??
                                     "",
-                                price: trBolgeler![_selectedRegionIndex]
-                                        .turkeyAllTabble[index]
-                                        .price ??
+                                price: pricem ??
                                     "",
                                 title:
                                     trBolgeler![_selectedRegionIndex].name ?? "",

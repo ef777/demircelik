@@ -38,9 +38,10 @@ class AvrupaProductView extends StatelessWidget {
                   href: "avrupasicakhac",
                 )),
                 image:
-                    "soguksac.png",
+                    "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
+                
             ],
           ),
         ),

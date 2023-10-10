@@ -440,17 +440,17 @@ class _DemirYeniState extends State<DemirYeni> {
                                         .tDataYeni[index]
                                         .date ??
                                     "",
-                                q8: bolgeler![_selectedRegionIndex]
+                                q8: double.parse(bolgeler![_selectedRegionIndex]
                                         .tDataYeni[index]
-                                        .q8 ??
+                                        .q8).toInt().round().toString() ??
                                     "",
-                                q10: bolgeler![_selectedRegionIndex]
+                                q10: double.parse(bolgeler![_selectedRegionIndex]
                                         .tDataYeni[index]
-                                        .q12 ??
+                                        .q12).toInt().round().toString() ??
                                     "",
-                                q12: bolgeler![_selectedRegionIndex]
+                                q12: double.parse(bolgeler![_selectedRegionIndex]
                                         .tDataYeni[index]
-                                        .q12_32 ??
+                                        .q12_32).toInt().round().toString() ??
                                     "",
                                 title:
                                     bolgeler![_selectedRegionIndex].name ?? "",

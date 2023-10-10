@@ -130,11 +130,15 @@ class hacUsaEuState extends State<hacUsaEu> {
   String tarih2 = "";
   String gelenistek = "";
   istek(istek, gtarih1, gtarih2) async {
+
+  
+
     if (istek == "avrupasicakhac") {
       bolge = "71";
-      urun = "594";
+      urun = "593";
       tarih1 = "$gtarih1";
       tarih2 = "$gtarih2";
+      print("eu sıcak başladı");
     }
     if (istek == "usasogukhac") {
       bolge = "69";
@@ -273,24 +277,7 @@ class hacUsaEuState extends State<hacUsaEu> {
                         title: widget.title,
                         price: items[0].price.toString(),
                       ),
-                      /*  DropdownButton<int>(
-                        value: _selectedRegionIndex,
-                        items: List<DropdownMenuItem<int>>.generate(
-                          bolgeler!.length,
-                          (index) => DropdownMenuItem<int>(
-                            value: index,
-                            child: Text(
-                              bolgeler![index].name ?? "",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            _selectedRegionIndex = newValue ?? 0;
-                          });
-                        },
-                      ), */
+                     
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,

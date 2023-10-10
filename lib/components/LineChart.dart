@@ -132,6 +132,17 @@ class RepeatableContainer extends StatelessWidget {
   }
 }
   int calculatePriceInterval(List<String> prices,int buyukmu) {
+         if(prices.length > 35 ) {
+  double interval = (20+buyukmu)  * log(prices.length + 1); // Logaritmik bir işlem uygula
+  return interval.ceil();
+
+      }
+      if(prices.length > 25 ) {
+  double interval = (20+buyukmu)  * log(prices.length + 1); // Logaritmik bir işlem uygula
+  return interval.ceil();
+
+      }
+    
       if(prices.length > 15 ) {
   double interval = (10+buyukmu)  * log(prices.length + 1); // Logaritmik bir işlem uygula
   return interval.ceil();
@@ -139,19 +150,46 @@ class RepeatableContainer extends StatelessWidget {
       }
       else {
 
-  double interval = 1 * log(prices.length + 1); // Logaritmik bir işlem uygula
+  double interval = 14 * log(prices.length + 1); // Logaritmik bir işlem uygula
   return interval.ceil();
 }}
 
   int calculateInterval(List<String> dates) {
+    // bu tarih için
+      if (dates.length> 60) {
+
+  double interval = 8 * log(dates.length + 1); // Logaritmik bir işlem uygula
+    return interval.ceil();
+
+    }
+      if (dates.length> 40) {
+
+  double interval = 7 * log(dates.length + 1); // Logaritmik bir işlem uygula
+    return interval.ceil();
+
+    }
     if (dates.length> 30) {
 
   double interval = 5 * log(dates.length + 1); // Logaritmik bir işlem uygula
     return interval.ceil();
 
     }
+     if (dates.length> 20) {
+
+  double interval = 4 * log(dates.length + 1); // Logaritmik bir işlem uygula
+    return interval.ceil();
+
+    }
+     if (dates.length> 10) {
+
+  double interval = 3 * log(dates.length + 1); // Logaritmik bir işlem uygula
+    return interval.ceil();
+
+    }
+   
+   
     else {
-  double interval = 1 * log(dates.length + 1); // Logaritmik bir işlem uygula
+  double interval = 2 * log(dates.length + 1); // Logaritmik bir işlem uygula
   return interval.ceil();
 }}
 class LineCharScrapmonster extends StatefulWidget {
@@ -1053,8 +1091,8 @@ leftTitles: AxisTitles(
       ),
        
 
-     minY: 0,
-    maxY:  1000,
+     minY: -100,
+    maxY:  1300,
   
       lineBarsData: [
         LineChartBarData(

@@ -41,6 +41,105 @@ class KarsilastirDetay extends StatefulWidget {
 
 
 class _KarsilastirDetayState extends State<KarsilastirDetay> {
+    List<dynamic> findLongestList(List<List<dynamic>> lists) {
+  if (lists.isEmpty) {
+    throw Exception("List of lists cannot be empty");
+  }
+
+  List<dynamic> longestList = lists[0];
+
+  for (int i = 0; i < lists.length; i++) {
+     print( "liste  ${lists[i].length} ");
+    if (lists[i].length > longestList.length) {
+
+      longestList = lists[i];
+    }
+  }
+
+  return longestList;
+}
+
+datatamamla(List list ,int eklesayi, String tur ){
+List tamamlanan = [];
+  Type listType = list.runtimeType;
+  
+//tipini öğren ok
+
+if(tur == "tr2"){
+List<String> list2 = list as List<String>;
+var adet = list2.length;
+var toplam = 0;
+List<String> birinciliste = list2;
+for(var i in  birinciliste){
+
+toplam = toplam + int.parse(i);
+}
+var ortalama = toplam/adet;
+var kacadeteklenecek = eklesayi - adet;
+ for(int i = 0 ; i<kacadeteklenecek;i++){
+  var eklenecek =  ortalama.toInt().toString();
+  birinciliste.insert(0, eklenecek);
+}
+return birinciliste;
+}
+
+
+if(tur=="tr"){
+
+List<FireProduct> list2 = list as List<FireProduct>;
+
+var adet = list2.length;
+var toplam = 0;
+for(FireProduct i in list2){ 
+
+toplam = toplam + int.parse(i.price);
+
+
+}
+var ortalama = toplam/adet;
+var kacadeteklenecek = eklesayi - adet;
+for(int i = 0 ; i<kacadeteklenecek;i++){
+  var eklenecek = FireProduct(
+    id: "0",
+    countryId: "0",
+    date: "0",
+    price: ortalama.toString(),
+    unit: "0",
+  );
+  list2.insert(0, eklenecek);
+}
+
+}
+else {
+
+
+List<DataItem> list2 = list as List<DataItem>;
+
+var adet = list2.length;
+var toplam = 0;
+for(DataItem i in list2){
+toplam = toplam + i.price.toInt();
+}
+var ortalama = toplam/adet;
+var kacadeteklenecek = eklesayi - adet;
+for(int i = 0 ; i<kacadeteklenecek;i++){
+  var eklenecek = DataItem(
+    
+    date: "0",
+    price: ortalama.toDouble(),
+    unit: "0",
+    
+  );
+  list2.insert(0, eklenecek);
+}
+
+
+
+}
+// listenin ortalamsını al
+// listeyi ortalama ile baştan tamamla
+ //dondur
+}
    Future<void> _selectDate(BuildContext context) async {
     picked = await showDatePicker(
       context: context,
@@ -162,7 +261,25 @@ List<DataItem> DataItemss  =await Us_Ch_Hurdamodel.fetch_us_hurda_db_ve_api(true
 
 var ChnDemirDatam;
    ChnDemirDatam = await Us_Ch_Hurdamodel.fetch_us_hurda_db_ve_api(false,_selectedDate,_selectedDate2);
-return [demir_tr_data,ChnDemirDatam,DataItemss]; 
+
+
+
+var enuzun =findLongestList([demir_tr_data[0].listefiyatlar , ChnDemirData,DataItemss]);
+            print("en uzun liste! ${enuzun.length}");
+print("hurda ok?");
+List<String> sonuctr= datatamamla(demir_tr_data[0].listefiyatlar,enuzun.length,"tr2");
+print("tamamlanmış sonuç $sonuctr");
+
+
+  TrBolgeler yeniNesne = demir_tr_data[0].copyWith(listefiyatlar: sonuctr );
+print("işte yeni nesne $yeniNesne");
+
+
+datatamamla(ChnDemirDatam,enuzun.length,"ch");
+datatamamla(DataItemss,enuzun.length,"usa");
+
+   
+return [yeniNesne,ChnDemirDatam,DataItemss]; 
 
 }
 
@@ -171,8 +288,7 @@ if(id == "1"){
 print("inşaat demiri");
 // turkey veri
 print("turkey veri demir başladı");
- var demir_tr_data ;
- demir_tr_data = await TurkeyAllPage.TurkeyFetchData(
+  List<TrBolgeler> demir_tr_data= await TurkeyAllPage.TurkeyFetchData(
                                       "1",
                                       "",
                                       _selectedDate,
@@ -186,7 +302,21 @@ print("turkey veri demir bitti");
 List<DataItem> ChnDemirData = [];
    ChnDemirData = await ch_tum_model.ch_api_db(Uri.parse("http://www.sunsirs.com/tr/prodetail-927.html"), _selectedDate, _selectedDate2 );
 //ok98 ok dbden çekildi inşaat
-return [demir_tr_data , ChnDemirData]; 
+
+var enuzun =findLongestList([demir_tr_data[0].listefiyatlar , ChnDemirData]);
+            print("en uzun liste! ${enuzun.length}");
+print("demir ok?");
+List<String> sonuctr= datatamamla(demir_tr_data[0].listefiyatlar,enuzun.length,"tr2");
+print("tamamlanmış sonuç $sonuctr");
+
+
+  TrBolgeler yeniNesne = demir_tr_data[0].copyWith(listefiyatlar: sonuctr );
+print("işte yeni nesne $yeniNesne");
+
+datatamamla(ChnDemirData,enuzun.length,"ch");
+//enson
+// burayı düzelt diper yerlere aynısını yap 
+return [yeniNesne , ChnDemirData]; 
 }
 
 if(id == "5"){
@@ -214,8 +344,21 @@ List<DataItem> ChnDemirData = [];
       print("çin veri");
       print(ChnDemirData);
       print("çin veri demir bitti");
+      
+var enuzun =findLongestList([demir_tr_data[0].listefiyatlar , ChnDemirData]);
+            print("en uzun liste! ${enuzun.length}");
+print("cevher ok?");
+List<String> sonuctr= datatamamla(demir_tr_data[0].listefiyatlar,enuzun.length,"tr2");
+print("tamamlanmış sonuç $sonuctr");
 
-return [demir_tr_data , ChnDemirData]; 
+
+  TrBolgeler yeniNesne = demir_tr_data[0].copyWith(listefiyatlar: sonuctr );
+print("işte yeni nesne $yeniNesne");
+
+
+datatamamla(ChnDemirData,enuzun.length,"ch");
+
+return [yeniNesne , ChnDemirData]; 
 }
 
 if (widget.id == "4"){
@@ -232,11 +375,21 @@ List<DataItem> ChnDemirData = [];
       print("çin veri");
       print(ChnDemirData);
       print("çin veri demir bitti");
+      var enuzun =findLongestList([fireproduct , ChnDemirData ,DataItemss,EUitems]);
+            print("en uzun liste ${enuzun.length}");
+
+datatamamla(fireproduct,enuzun.length,"tr");
+datatamamla(ChnDemirData,enuzun.length,"ch");
+
+
 
                         return [fireproduct , ChnDemirData]; 
 
 }
 if (widget.id == "2"){
+
+
+
 print("Sıcak haddelenmiş sac");
 print("turkey veri Sıcak haddelenmiş sac başladı from firebase");
   List<FireProduct> fireproduct  = await  firemodeltum.butunfirebasedata("Sıcak Haddelenmiş Sac", _selectedDate!, _selectedDate2!);
@@ -252,16 +405,27 @@ List<DataItem> ChnDemirData = [];
       print("çin veri Sıcak haddelenmiş sac bitti?");
 
    List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "593","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
-   
+                           List<DataItem> EUitems  = await hacUsaEu.UsaFetch("71", "593","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
+                        
          print("dataitems geçt");
+         print("eu fiyat sıcak $EUitems");
 
-                        return [fireproduct , ChnDemirData,DataItemss]; 
+var enuzun =findLongestList([fireproduct , ChnDemirData ,DataItemss,EUitems]);
+            print("en uzun liste ${enuzun.length}");
+
+datatamamla(fireproduct,enuzun.length,"tr");
+datatamamla(ChnDemirData,enuzun.length,"ch");
+datatamamla(DataItemss,enuzun.length,"usa");
+datatamamla(EUitems,enuzun.length,"eu");
+
+            
+                        return [fireproduct , ChnDemirData,DataItemss,EUitems]; 
 //98* çin de eklenecek dbden çi ok*
 }
 if (widget.id == "3"){
 
   //98* burda çin dbden eklenecek *ok
-print("sOĞUK haddelenmiş sac");
+print("sOĞUK haddelenmiş sac başladı");
 print("turkey veri Soğuk haddelenmiş sac başladı from firebase");
   List<FireProduct> fireproduct  = await  firemodeltum.butunfirebasedata("Soğuk Haddelenmiş Sac", _selectedDate!, _selectedDate2!);
  /*  dates: products.map((e) => e.date).toList(),
@@ -273,13 +437,17 @@ List<DataItem> ChnDemirData = [];
    ChnDemirData = await   ch_tum_model.ch_api_db( Uri.parse("http://www.sunsirs.com/tr/prodetail-318.html") , _selectedDate, _selectedDate2);
       print("çin veri");
       print(ChnDemirData);
-      print("çin veri Sıcak haddelenmiş sac bitti!!!");
+      print("çin veri soguk haddelenmiş sac bitti!!!");
 
-   List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "594", "_selectedDate", "_selectedDate2");
-                        List<DataItem> EUitems  = await hacUsaEu.UsaFetch("71", "594", "_selectedDate", "_selectedDate2");
-                    
-                       
-                        return [fireproduct , ChnDemirData,DataItemss,EUitems]; 
+   List<DataItem> DataItemss  = await hacUsaEu.UsaFetch("69", "594","${usaformatdate(_selectedDate)}" ,"${usaformatdate( _selectedDate2)}");
+       var enuzun =findLongestList([fireproduct , ChnDemirData ,DataItemss,EUitems]);
+            print("en uzun liste ${enuzun.length}");
+
+datatamamla(fireproduct,enuzun.length,"tr");
+datatamamla(ChnDemirData,enuzun.length,"ch");
+datatamamla(DataItemss,enuzun.length,"usa");
+
+                        return [fireproduct , ChnDemirData,DataItemss]; 
 
 }
 }
@@ -341,7 +509,8 @@ List<DataItem> EUitems  = [];
         if (snapshot.hasData) {
           var data = snapshot.data;
        if(widget.id == "1" ){
-            trdemirdata = data[0];
+            trdemirdata =   [data[0]];
+
 ChnDemirData = data[1];
 print("id 1 tr  date ornek " + trdemirdata![0]
                             .turkeyAllTabble
@@ -356,7 +525,7 @@ print(ch_dates.toString());
           } 
              if(widget.id == "6" ){
               
-            trdemirdata = data[0];
+             trdemirdata =    [data[0]];
 ChnDemirData = data[1] ;
 DataItemss = data[2];
                    ch_dates = ChinaView.getAllDates(ChnDemirData);
@@ -373,15 +542,12 @@ print("id 6 ch date ornek  " + ChnDemirData[0].date.toString() );
           if(widget.id == "5" ){
             
 
-            trdemirdata = data[0];
+            trdemirdata =      [data[0]];
 ChnDemirData = data[1];
                    ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
  
-print("id 5 tr  date ornek " + trdemirdata![0]
-                            .turkeyAllTabble
-                            [0].date.toString() );
-print("id 5 ch date ornek  " + ChnDemirData[0].date.toString() );
+
 
           } 
 
@@ -393,8 +559,6 @@ print("id 5 ch date ornek  " + ChnDemirData[0].date.toString() );
              
               ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
-  print("id 4 tr  date ornek " + fireproduct[0].date.toString() );
-print("id 4 ch date ornek  " + ChnDemirData[0].date.toString() );
 
 
           }
@@ -403,30 +567,30 @@ print("id 4 ch date ornek  " + ChnDemirData[0].date.toString() );
 
             print("id2 build");
              fireproduct  = data[0];
-             print("gelen tr data ${fireproduct[0].price}");
              ChnDemirData = data[1];
-              print("gelen ch data ${ChnDemirData[0].price} ");
+            
               ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
   DataItemss = data[2];
+    EUitems  = data[3];
   print("id 2 usa date ornek  " + DataItemss[0].date.toString() );
   print("id 2 tr  date ornek " + fireproduct[0].date.toString() );
 
 print("id 2 ch date ornek  " + ChnDemirData[0].date.toString() );
+print("eu fiyat sicak $EUitems");
 
 
           }
            if( widget.id == "3" ){
              fireproduct  = data[0];
              ChnDemirData = data[1];
+             
               ch_dates = ChinaView.getAllDates(ChnDemirData);
   ch_dates = ch_dates.reversed.toList();
   DataItemss = data[2];
-   EUitems  = data[3];
-  print("id 3 tr  date ornek " + fireproduct[0].date.toString() );
-print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
-  print("id 3 usa date ornek  " + DataItemss[0].date.toString() );
-  print("id 3 eu date ornek  " + EUitems[0].date.toString() );
+ 
+
+ 
 // hepsini nu fortama döndür 2023-10-01
 
           }
@@ -464,16 +628,17 @@ print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
             dates4: [],
                             
                     ) : 
-                   //id 2 sıcak hac tr firebase + çin + usa
+                   //id 2 sıcak hac tr firebase + çin + usa 
                     widget.id == "2" ?  MultiLineChart(
             prices1: fireproduct.map((e) => e.price).toList() , // 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
             prices3: DataItemss.map((e) => e.price.toString()).toList(),
-            prices4: [],
+              prices4: EUitems.map((e) => e.price.toString()).toList(),
             dates1:   fireproduct.map((e) => e.date).toList() ,
             dates2:   ch_dates,// Sample dates for prices 2
             dates3: DataItemss.map((e) => e.date.toString()).toList(), /* DataItemss.map((e) => e.date).toList(), */
-            dates4: [],
+                        dates4:EUitems.map((e) => e.date.toString()).toList(),
+
                             
                     ) 
                                        //id 3 soğuk hac tr firebase + site çin usa eu yapıalcak !!
@@ -483,11 +648,11 @@ print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
             prices1: fireproduct.map((e) => e.price).toList(), // 
             prices2: ChnDemirData.map((e) => e.price.toString()).toList(), // Sample prices 2
             prices3: DataItemss.map((e) => e.price.toString()).toList(),
-            prices4: EUitems.map((e) => e.price.toString()).toList(),
+            prices4: [],
             dates1:  fireproduct.map((e) => e.date).toList() ,
             dates2:   ch_dates,// Sample dates for prices 2
              dates3: DataItemss.map((e) => e.date.toString()).toList(), /* DataItemss.map((e) => e.date).toList(), */
-            dates4:EUitems.map((e) => e.date.toString()).toList(),
+            dates4: [],
                             // id 4 galvanizli sac tr firebase + site çin
 
                     ) : widget.id=="4" ?  MultiLineChart(
@@ -631,6 +796,15 @@ print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
                      ),
                      Text("Amerika",style :TextStyle(fontSize: 14
                     , color:Colors.green )),
+                     SizedBox(width: 25,),
+                     Container(
+                       width: 5,
+                       height: 5,
+                       color: Colors.yellow,
+                     ),
+                     Text("Avrupa",style :TextStyle(fontSize: 14
+                    , color:Colors.yellow )),
+                    
                    ],),)) : Container(),
 
    widget.id== "3" ?
@@ -667,15 +841,7 @@ print("id 3 ch date ornek  " + ChnDemirData[0].date.toString() );
                      ),
                      Text("Amerika",style :TextStyle(fontSize: 14
                     , color:Colors.green )),
-                    SizedBox(width: 25,),
-                     Container(
-                       width: 5,
-                       height: 5,
-                       color: Colors.yellow,
-                     ),
-                     Text("Avrupa",style :TextStyle(fontSize: 14
-                    , color:Colors.yellow )),
-                     ],),)) : Container(),
+                    ],),)) : Container(),
                         widget.id== "4" ?
                    Container(child: 
                 Center(child:   Row(

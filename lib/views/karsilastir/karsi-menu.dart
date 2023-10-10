@@ -64,10 +64,10 @@ class KarsilastirmaMenu extends StatelessWidget {
                AreaContainer(
                 onTap: () => context.navigateToPage(KarsilastirDetay (id:"3",
               
-                title: "Sıcak Haddelenmiş Sac Fiyatı",
+                title: "Soguk Haddelenmiş Sac Fiyatı",
                 )),
                 image:
-                    "sicaksac.png",
+                    "soguksac.png",
                 title: "Soğuk Haddelenmiş Sac",
               ), AreaContainer(
                 onTap: () => context.navigateToPage(KarsilastirDetay (id:"4",
