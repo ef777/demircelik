@@ -181,6 +181,7 @@ class ChinaView extends State<ChinaData> {
                                 child: Icon(Icons.refresh_outlined))
                           ]),
                       ListView.builder(
+                         reverse: true,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(10),
                         physics: const NeverScrollableScrollPhysics(),

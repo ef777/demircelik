@@ -426,6 +426,7 @@ class _DemirYeniState extends State<DemirYeni> {
                                 child: Icon(Icons.refresh_outlined))
                           ]),
                       ListView.builder(
+                         reverse: true,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(10),
                         physics: const NeverScrollableScrollPhysics(),

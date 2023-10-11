@@ -173,7 +173,7 @@ class Comp12 extends StatelessWidget {
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
                 colors: [
-                  Color.fromARGB(48, 4, 100, 7),
+                  Color.fromARGB(47, 153, 158, 153),
                   Color.fromARGB(94, 7, 65, 113)
                 ]),
             borderRadius: BorderRadius.circular(16)),

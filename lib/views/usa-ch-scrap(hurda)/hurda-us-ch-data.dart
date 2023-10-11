@@ -193,11 +193,13 @@ class _UsAndChinaScrapmonsState extends State<UsAndChinaScrapmons> {
                                 child: Icon(Icons.refresh_outlined))
                           ]),
                       ListView.builder(
+                         reverse: true,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(10),
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: items.length,
                         itemBuilder: (context, index) {
+
                           return Container(
                               margin: EdgeInsets.all(
                                   5), // her öğenin etrafında 5 piksel boşluk

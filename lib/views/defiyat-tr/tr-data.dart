@@ -504,6 +504,7 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
                                 )
                           ]),
                       ListView.builder(
+                         reverse: true,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(10),
                         physics: const NeverScrollableScrollPhysics(),

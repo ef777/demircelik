@@ -35,23 +35,53 @@ var urunid;
 if(url.toString() == "http://www.sunsirs.com/tr/prodetail-195.html" ){
   print("dbden sıcak hac çekiliyor çin için ");
 db = 1;
-urungrup = 7;
+urungrup = 10; // 10 seçilecek
 urunid = 2;
 }
 //soğuk sac
 if (url.toString()  == "http://www.sunsirs.com/tr/prodetail-318.html"){
 db = 1;
-urungrup = 7;
+urungrup = 10;
 urunid = 1;
 print("dbden soğuk hac çekiliyor çin için ");
 }
 //inşaat demir
 if (url.toString()  == "http://www.sunsirs.com/tr/prodetail-927.html"){
-urungrup = 7;
+urungrup = 13;
 urunid = 9;
 db =1;
 print("dbden inşaat demir çekiliyor çin için ");
 }
+
+if (url.toString()  == "http://www.sunsirs.com/tr/prodetail-301.html"){
+urungrup = 10;
+urunid = 4;
+db =1;
+print("dbden galvaniz çekiliyor çin için ");
+}
+
+
+
+if (url.toString()  == "http://www.sunsirs.com/tr/prodetail-300.html"){
+urungrup = 10;
+urunid = 5;
+db =1;
+print("dbden boyali sac çekiliyor çin için ");
+}
+
+
+if (url.toString()  == "http://www.sunsirs.com/tr/prodetail-961.html"){
+urungrup = 11;
+urunid = 15;
+db =1;
+print("dbden demir cevher çekiliyor çin için ");
+}
+
+//kütük demir cost pas yok çünkü
+//nervurlu kangal cost yok
+//h profil  ana grup pas
+
+
 
 if (db!=1){
 print("dbden çekilmeyecek çin verileri only api");
@@ -89,8 +119,13 @@ return await son;
     return await son ;
   }
   else{
+    List<DataItem> son = [
+
+DataItem(date: "0", price: 0, unit: "USD")
+
+    ];
     print("hiç bir yerden çin veri gelmedi");
-    return [];
+    return await son;
   }
 
 
