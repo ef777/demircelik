@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:demircelik/views/firestore-tr/fireview.dart';
 import 'package:demircelik/model-control/kurdata.dart';
 import 'package:demircelik/views/defiyat-tr/tr_demir-data.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -437,6 +438,13 @@ class _TurkeyAllPageState extends State<TurkeyAllPage> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

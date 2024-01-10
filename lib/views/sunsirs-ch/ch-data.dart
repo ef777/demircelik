@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:demircelik/model-control/china_tum_model.dart';
 import 'package:demircelik/model-control/us_ch_hurda_model.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -145,6 +146,13 @@ class ChinaView extends State<ChinaData> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

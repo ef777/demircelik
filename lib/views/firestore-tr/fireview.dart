@@ -4,7 +4,8 @@ import 'package:demircelik/components/LineChart.dart';
 import 'package:demircelik/model-control/db.dart';
 import 'package:demircelik/model-control/datacont.dart';
 import 'package:demircelik/model-control/fireModel.dart';
-import 'package:flutter/material.dart';
+import 'package:demircelik/wpbutton.dart';
+import 'package:flutter/material.dart'; 
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart' as dom;
@@ -142,6 +143,13 @@ class _FireViewState extends State<FireView> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -100,7 +100,7 @@ print("dbden çekilmeli çin verileri");
 
 
 var apiden_gelen = await ChinaFetchData(url);
-var dbden_gelen =  await dbcontroller.querydb(Datacontroller.parseDate("$ilktarih"), Datacontroller.parseDate("$sontarih"), "13", "6");
+var dbden_gelen =  await dbcontroller.querydb(Datacontroller.parseDate("$ilktarih"), Datacontroller.parseDate("$sontarih"), "$urunid", "$urungrup");
 
 if (dbden_gelen.length>0 && apiden_gelen.length>0){  
   print("hem db hem api den çin  geldi") ;

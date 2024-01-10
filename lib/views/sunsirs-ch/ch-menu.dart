@@ -39,6 +39,26 @@ class CinProductView extends StatelessWidget {
                     "sicaksac.png",
                 title: "Sıcak Haddelenmiş Sac Fiyatı",
               ),
+                AreaContainer(
+                onTap: () => context.navigateToPage(ChinaData(
+                  appbarTitle: "Soğuk Haddelenmiş Sac Fiyatı",
+                  title: "Soğuk Haddelenmiş Sac",
+                  href: "http://www.sunsirs.com/tr/prodetail-318.html",
+                )),
+                image:
+                    "soguksac.png",
+                title: "Soğuk Haddelenmiş Sac Fiyatı",
+              ),
+                AreaContainer(
+                onTap: () => context.navigateToPage(ChinaData(
+                  appbarTitle: "Galvaniz Sac Fiyatı",
+                  title: "Galvaniz Sac",
+                  href: "http://www.sunsirs.com/tr/prodetail-301.html",
+                )),
+                image:
+                    "galvanizsac.png",
+                title: "Galvaniz Sac Fiyatı",
+              ),
               AreaContainer(
                 onTap: () => context.navigateToPage(UsAndChinaScrapmons(
                   appbarTitle: "Çelik Hurda Fiyatı",
@@ -49,26 +69,6 @@ class CinProductView extends StatelessWidget {
                 )),
                 image: "ithalhurda.png",
                 title: "Çelik Hurda Fiyatı ",
-              ),
-              AreaContainer(
-                onTap: () => context.navigateToPage(ChinaData(
-                  appbarTitle: "Soğuk Haddelenmiş Sac Fiyatı",
-                  title: "Soğuk Haddelenmiş Sac",
-                  href: "http://www.sunsirs.com/tr/prodetail-318.html",
-                )),
-                image:
-                    "soguksac.png",
-                title: "Soğuk Haddelenmiş Sac Fiyatı",
-              ),
-              AreaContainer(
-                onTap: () => context.navigateToPage(ChinaData(
-                  appbarTitle: "Galvaniz Sac Fiyatı",
-                  title: "Galvaniz Sac",
-                  href: "http://www.sunsirs.com/tr/prodetail-301.html",
-                )),
-                image:
-                    "galvanizsac.png",
-                title: "Galvaniz Sac Fiyatı",
               ),
               AreaContainer(
                 onTap: () => context.navigateToPage(ChinaData(

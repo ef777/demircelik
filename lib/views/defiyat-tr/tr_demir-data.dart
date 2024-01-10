@@ -1,5 +1,6 @@
 import 'package:demircelik/components/LineChart.dart';
 import 'package:demircelik/model-control/kurdata.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -362,6 +363,13 @@ class _DemirYeniState extends State<DemirYeni> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

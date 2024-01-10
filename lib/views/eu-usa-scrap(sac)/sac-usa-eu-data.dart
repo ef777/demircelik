@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:demircelik/components/Comp.dart';
 import 'package:demircelik/components/LineChart.dart';
 import 'package:demircelik/model-control/us_ch_hurda_model.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -265,6 +266,13 @@ class hacUsaEuState extends State<hacUsaEu> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

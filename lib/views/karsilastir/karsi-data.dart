@@ -13,6 +13,7 @@ import 'package:demircelik/views/eu-usa-scrap(sac)/sac-usa-eu-data.dart';
 import 'package:demircelik/model-control/db.dart';
 import 'package:demircelik/model-control/datacont.dart';
 import 'package:demircelik/model-control/fireModel.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -597,6 +598,13 @@ print("eu fiyat sicak $EUitems");
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.title),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(1.0),

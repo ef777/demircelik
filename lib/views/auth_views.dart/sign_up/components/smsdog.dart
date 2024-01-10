@@ -33,7 +33,7 @@ class _SmsDogState extends State<SmsDog> {
         print('Kullanıcı belgesi bulunamadı');
       }
     } catch (e) {
-      print('Firestore hatası: $e');
+      print('Firestore hatası sms: $e');
     }
   }
 

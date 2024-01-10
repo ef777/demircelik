@@ -444,7 +444,7 @@ spots = filteredSpots;
           
           spots: spots,
           isCurved: true,
-          gradient: LinearGradient(
+          gradient: LinearGradient( 
             colors: gradientColors,
           ),
           barWidth: 5,

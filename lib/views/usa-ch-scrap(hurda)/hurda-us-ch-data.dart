@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:demircelik/model-control/datacont.dart';
 import 'package:demircelik/model-control/us_ch_hurda_model.dart';
+import 'package:demircelik/wpbutton.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -137,6 +138,13 @@ class _UsAndChinaScrapmonsState extends State<UsAndChinaScrapmons> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(widget.appbarTitle),
+              ),
+              
+         
+           floatingActionButton:   WhatsAppMessageButton(
+                textim: "Merhaba!, " +
+                    widget.title +
+                    " fiyatları hakkında bilgi almak istiyorum.",
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),

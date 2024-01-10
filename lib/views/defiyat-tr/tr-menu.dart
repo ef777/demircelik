@@ -26,28 +26,7 @@ class TurkeyProductView extends StatelessWidget {
           padding: context.paddingLow,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AreaContainer(
-                onTap: () => context.navigateToPage(DemirYeni(
-                  title: '',
-                  appbarTitle: '',
-                  href: '',
-                )),
-                image:
-                    "insaatdemiri.png",
-                title: "Demir Fiyatı",
-              ),
-              AreaContainer(
-                onTap: () => context.navigateToPage(TurkeyAllPage(
-                  appbarTitle: "Kütük Fiyatı",
-                  title: "Kütük",
-                  href: "Kütük",
-                )),
-                image:
-                    "kutuk.png",
-                title: "Kütük Fiyatı",
-              ),
-              AreaContainer(
+            children: [ AreaContainer(
                 onTap: () => context.navigateToPage(TurkeyAllPage(
                   appbarTitle: "Çelik Hasır Fiyatı",
                   title: "Çelik Hasır",
@@ -111,7 +90,7 @@ class TurkeyProductView extends StatelessWidget {
                     "soguksac.png",
                 title: "Soğuk Haddelenmiş Sac",
               ),
-              AreaContainer(
+                AreaContainer(
                 onTap: () => context.navigateToPage(FireView(
                   title: '',
                   appbarTitle: '',
@@ -123,6 +102,28 @@ class TurkeyProductView extends StatelessWidget {
                     "galvanizsac.png",
                 title: "Galvaniz Sac",
               ),
+              AreaContainer(
+                onTap: () => context.navigateToPage(DemirYeni(
+                  title: '',
+                  appbarTitle: '',
+                  href: '',
+                )),
+                image:
+                    "insaatdemiri.png",
+                title: "Demir Fiyatı",
+              ),
+              AreaContainer(
+                onTap: () => context.navigateToPage(TurkeyAllPage(
+                  appbarTitle: "Kütük Fiyatı",
+                  title: "Kütük",
+                  href: "Kütük",
+                )),
+                image:
+                    "kutuk.png",
+                title: "Kütük Fiyatı",
+              ),
+             
+            
               AreaContainer(
                 onTap: () => context.navigateToPage(TurkeyAllPage(
                   appbarTitle: "Nervurlu Kangal Fiyatı",
